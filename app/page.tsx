@@ -1,14 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InputForm from "../components/InputForm";
 import ResultsCard from "../components/ResultsCard";
+import HistoryList from "../components/HistoryList";
 import { AnalysisResult } from "../types";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [history, setHistory] = useState<AnalysisResult[]>([]);
+
+  useEffect(() => {
+    const savedHistory = localStorage.getItem("wearwise_history");
+    if (savedHistory) {
+      try {
+        setHistory(JSON.parse(savedHistory));
+      } catch (e) {
+        console.error("Failed to parse history", e);
+      }
+    }
+  }, []);
+
+  const saveToHistory = (newResult: AnalysisResult) => {
+    setHistory(prev => {
+      const filtered = prev.filter(item => 
+        !(item.product_name === newResult.product_name && item.brand === newResult.brand)
+      );
+      const newHistory = [newResult, ...filtered].slice(0, 20); // Keep last 20
+      localStorage.setItem("wearwise_history", JSON.stringify(newHistory));
+      return newHistory;
+    });
+  };
 
   const handleAnalyze = async (text: string) => {
     setIsLoading(true);
@@ -31,11 +55,17 @@ export default function Home() {
 
       const data = await response.json();
       setResult(data);
+      saveToHistory(data);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "An unexpected error occurred");
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleSelectHistory = (selectedResult: AnalysisResult) => {
+    setResult(selectedResult);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -60,6 +90,8 @@ export default function Home() {
         )}
 
         {result && <ResultsCard result={result} />}
+
+        <HistoryList history={history} onSelect={handleSelectHistory} />
       </div>
     </div>
   );
