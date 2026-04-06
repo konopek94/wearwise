@@ -1,3 +1,4 @@
+import { Redis } from "@upstash/redis";
 import { AnalysisResult } from "../types";
 
 export interface TopProduct {
@@ -5,10 +6,10 @@ export interface TopProduct {
   count: number;
 }
 
-// In-memory store (resets on serverless cold starts, suitable for MVP)
-const topProducts: Map<string, TopProduct> = new Map();
+// Fallback in-memory store for local dev when Redis is not configured
+const localTopProducts: Map<string, TopProduct> = new Map();
 
-// Initialize with some mock data so the Top 10 list isn't empty initially
+// Initialize with some mock data so the Top 10 list isn't empty locally
 const mockProducts: AnalysisResult[] = [
   {
     product_name: "Organic Cotton T-Shirt",
@@ -44,21 +45,61 @@ const mockProducts: AnalysisResult[] = [
 
 mockProducts.forEach((p, i) => {
   const key = `${p.product_name}-${p.brand}`.toLowerCase();
-  topProducts.set(key, { result: p, count: 100 - i * 10 }); // Decreasing mock counts
+  localTopProducts.set(key, { result: p, count: 100 - i * 10 });
 });
 
-export function recordSearch(result: AnalysisResult) {
-  const key = `${result.product_name}-${result.brand}`.toLowerCase();
-  if (topProducts.has(key)) {
-    const existing = topProducts.get(key)!;
-    existing.count += 1;
-    existing.result = result; // Keep most recent analysis
+const isRedisConfigured = process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN;
+const redis = isRedisConfigured ? Redis.fromEnv() : null;
+
+export async function recordSearch(result: AnalysisResult) {
+  const id = `${result.product_name}-${result.brand}`.toLowerCase();
+
+  if (redis) {
+    try {
+      // Increment the score in the sorted set
+      await redis.zincrby("wearwise:leaderboard", 1, id);
+      // Store the actual product JSON separately
+      await redis.hset("wearwise:products", { [id]: JSON.stringify(result) });
+    } catch (error) {
+      console.error("Redis Error (recordSearch):", error);
+    }
   } else {
-    topProducts.set(key, { result, count: 1 });
+    // Local fallback
+    if (localTopProducts.has(id)) {
+      const existing = localTopProducts.get(id)!;
+      existing.count += 1;
+      existing.result = result;
+    } else {
+      localTopProducts.set(id, { result, count: 1 });
+    }
   }
 }
 
-export function getTop10(): AnalysisResult[] {
-  const sorted = Array.from(topProducts.values()).sort((a, b) => b.count - a.count);
-  return sorted.slice(0, 10).map(item => item.result);
+export async function getTop10(): Promise<AnalysisResult[]> {
+  if (redis) {
+    try {
+      // Fetch top 10 IDs with highest score
+      const topIds = await redis.zrange("wearwise:leaderboard", 0, 9, { rev: true });
+      if (!topIds || topIds.length === 0) return [];
+
+      // Fetch the full product JSON for those IDs
+      const products = await Promise.all(
+        topIds.map(async (id) => {
+          // Depending on Upstash SDK version, it parses JSON automatically or returns a string
+          const data = await redis.hget<string | object>("wearwise:products", String(id));
+          if (typeof data === "string") return JSON.parse(data);
+          return data;
+        })
+      );
+      
+      return products.filter((p): p is AnalysisResult => p !== null);
+    } catch (error) {
+      console.error("Redis Error (getTop10):", error);
+      return [];
+    }
+  } else {
+    // Local fallback
+    const sorted = Array.from(localTopProducts.values()).sort((a, b) => b.count - a.count);
+    return sorted.slice(0, 10).map(item => item.result);
+  }
 }

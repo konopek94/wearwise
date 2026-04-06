@@ -39,4 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-\n.worktrees/
+
+.worktrees/
+
+AGENTS.md
+CLAUDE.md
+docs/superpowers/
