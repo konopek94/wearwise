@@ -57,7 +57,7 @@ export default function InputForm({ onAnalyze, isLoading }: InputFormProps) {
           value={text}
           onChange={handleTextChange}
           placeholder="e.g., 100% organic cotton t-shirt"
-          className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 min-h-[120px]"
+          className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 min-h-30 text-gray-700"
           disabled={isLoading || ocrLoading}
         />
       </div>
