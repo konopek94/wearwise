@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import InputForm from "../components/InputForm";
 import ResultsCard from "../components/ResultsCard";
 import HistoryList from "../components/HistoryList";
+import Top10List from "../components/Top10List";
 import { AnalysisResult } from "../types";
 
 export default function Home() {
@@ -92,6 +93,8 @@ export default function Home() {
         {result && <ResultsCard result={result} />}
 
         <HistoryList history={history} onSelect={handleSelectHistory} />
+        
+        <Top10List onSelect={handleSelectHistory} />
       </div>
     </div>
   );

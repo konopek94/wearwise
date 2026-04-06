@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { analyzeProduct } from "../../../lib/google-ai";
+import { recordSearch } from "../../../lib/store";
 
 export async function POST(req: NextRequest) {
   try {
@@ -11,6 +12,9 @@ export async function POST(req: NextRequest) {
     }
 
     const result = await analyzeProduct(text);
+    
+    // Record search globally
+    recordSearch(result);
     
     return NextResponse.json(result);
   } catch (error: unknown) {
