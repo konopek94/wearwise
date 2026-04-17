@@ -15,24 +15,24 @@ export default function LanguageSwitcher() {
   };
 
   const labels: Record<string, string> = {
-    en: "English",
-    pl: "Polski",
-    de: "Deutsch",
-    es: "Español",
+    en: "EN",
+    pl: "PL",
+    de: "DE",
+    es: "ES",
   };
 
   return (
-    <div className="flex space-x-2">
+    <div className="flex items-center space-x-1">
       {i18n.locales.map((locale) => {
         const isActive = pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`;
         return (
           <Link
             key={locale}
             href={redirectedPathname(locale)}
-            className={`px-3 py-1 text-xs font-medium rounded-full border transition-colors ${
+            className={`px-3 py-1.5 text-[10px] font-black tracking-widest transition-all rounded-full ${
               isActive
-                ? "bg-blue-600 text-white border-blue-600"
-                : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
+                ? "bg-on-surface text-surface-lowest shadow-sm"
+                : "text-primary-design hover:bg-surface-highest/10"
             }`}
           >
             {labels[locale]}

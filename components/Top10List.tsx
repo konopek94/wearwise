@@ -28,45 +28,53 @@ export default function Top10List({ onSelect, dictionary }: Top10ListProps) {
     fetchTop10();
   }, []);
 
-  if (isLoading) return <div className="mt-12 text-center text-sm text-gray-500">{dictionary.loadingTop}</div>;
+  if (isLoading) return <div className="mt-12 text-center text-xs font-black uppercase tracking-widest text-surface-highest">{dictionary.loadingTop}</div>;
   if (topProducts.length === 0) return null;
+
+  const getVerdictStyle = (verdict: string) => {
+    switch (verdict.toLowerCase()) {
+      case 'buy': return 'bg-secondary-design/10 text-secondary-design';
+      case 'consider': return 'bg-tertiary-design/10 text-tertiary-design';
+      case 'avoid': return 'bg-error-design/10 text-error-design';
+      default: return 'bg-surface-highest/20 text-primary-design';
+    }
+  };
 
   const getVerdictLabel = (verdict: string) => {
     return (dictionary.verdicts as Record<string, string>)?.[verdict.toLowerCase()] || verdict;
   };
 
   return (
-    <div className="mt-12 w-full max-w-2xl mx-auto">
-      <h3 className="text-xl font-bold text-gray-900 mb-4">{dictionary.top10}</h3>
-      <div className="bg-white shadow-sm rounded-xl overflow-hidden border border-gray-100">
-        <ul className="divide-y divide-gray-100">
-          {topProducts.map((item, index) => (
-            <li 
-              key={index}
-              onClick={() => onSelect(item)}
-              className="px-6 py-4 hover:bg-gray-50 cursor-pointer transition-colors duration-150 flex items-center justify-between"
-            >
-              <div className="flex items-center space-x-4">
-                <span className="text-lg font-bold text-gray-400 w-6 text-center">{index + 1}</span>
-                <div>
-                  <p className="text-sm font-medium text-gray-900">{item.product_name || dictionary.unknownProduct}</p>
-                  <p className="text-xs text-gray-500">{item.brand || dictionary.unknownBrand}</p>
-                </div>
+    <div className="w-full">
+      <h3 className="text-xs font-black text-primary-design uppercase tracking-[0.2em] mb-10">{dictionary.top10}</h3>
+      <div className="space-y-4">
+        {topProducts.map((item, index) => (
+          <div 
+            key={index}
+            onClick={() => onSelect(item)}
+            className="group p-6 bg-surface-lowest hover:bg-surface-low rounded-lg transition-all duration-300 cursor-pointer shadow-sm hover:shadow-ambient flex items-center justify-between"
+          >
+            <div className="flex items-center space-x-6">
+              <span className="text-2xl font-black text-surface-highest group-hover:text-secondary-design/30 transition-colors w-8 tabular-nums">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <div className="space-y-1">
+                <p className="text-lg font-bold text-on-surface group-hover:text-secondary-design transition-colors line-clamp-1">
+                  {item.product_name || dictionary.unknownProduct}
+                </p>
+                <p className="text-sm text-primary-design font-light italic">
+                  {item.brand || dictionary.unknownBrand}
+                </p>
               </div>
-              <div className="flex items-center space-x-3">
-                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium uppercase tracking-wider ${
-                  item.verdict === 'buy' ? 'bg-green-100 text-green-800' :
-                  item.verdict === 'consider' ? 'bg-yellow-100 text-yellow-800' :
-                  item.verdict === 'avoid' ? 'bg-red-100 text-red-800' :
-                  'bg-gray-100 text-gray-800'
-                }`}>
-                  {getVerdictLabel(item.verdict)}
-                </span>
-                <span className="text-gray-400 text-sm">→</span>
-              </div>
-            </li>
-          ))}
-        </ul>
+            </div>
+            <div className="flex items-center space-x-4">
+              <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest hidden sm:inline-block ${getVerdictStyle(item.verdict)}`}>
+                {getVerdictLabel(item.verdict)}
+              </span>
+              <span className="text-surface-highest group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

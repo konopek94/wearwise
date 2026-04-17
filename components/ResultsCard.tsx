@@ -10,30 +10,30 @@ const ProgressBar = ({ value, label }: { value: number; label: string }) => {
   // Map 0-10 to percentage
   const percentage = (value / 10) * 100;
   
-  let color = "bg-green-500";
-  if (value < 4) color = "bg-red-500";
-  else if (value < 7) color = "bg-yellow-500";
+  let color = "bg-secondary-design";
+  if (value < 4) color = "bg-error-design";
+  else if (value < 7) color = "bg-tertiary-design";
 
   return (
-    <div className="mb-4">
-      <div className="flex justify-between mb-1">
-        <span className="text-sm font-medium text-gray-700">{label}</span>
-        <span className="text-sm font-medium text-gray-700">{value}/10</span>
+    <div className="mb-6">
+      <div className="flex justify-between mb-2">
+        <span className="text-sm font-semibold text-primary-design uppercase tracking-wider">{label}</span>
+        <span className="text-sm font-bold text-on-surface">{value}/10</span>
       </div>
-      <div className="w-full bg-gray-200 rounded-full h-2.5">
-        <div className={`h-2.5 rounded-full ${color}`} style={{ width: `${percentage}%` }}></div>
+      <div className="w-full bg-surface-low rounded-full h-3">
+        <div className={`h-3 rounded-full ${color} shadow-sm transition-all duration-1000 ease-out`} style={{ width: `${percentage}%` }}></div>
       </div>
     </div>
   );
 };
 
 export default function ResultsCard({ result, dictionary }: ResultsCardProps) {
-  const getVerdictColor = (verdict: string) => {
+  const getVerdictStyle = (verdict: string) => {
     switch (verdict.toLowerCase()) {
-      case "buy": return "bg-green-100 text-green-800 border-green-200";
-      case "consider": return "bg-yellow-100 text-yellow-800 border-yellow-200";
-      case "avoid": return "bg-red-100 text-red-800 border-red-200";
-      default: return "bg-gray-100 text-gray-800 border-gray-200";
+      case "buy": return "bg-secondary-design/10 text-secondary-design border-secondary-design/20";
+      case "consider": return "bg-tertiary-design/10 text-tertiary-design border-tertiary-design/20";
+      case "avoid": return "bg-error-design/10 text-error-design border-error-design/20";
+      default: return "bg-surface-highest/10 text-primary-design border-surface-highest/20";
     }
   };
 
@@ -41,61 +41,75 @@ export default function ResultsCard({ result, dictionary }: ResultsCardProps) {
     return dictionary.verdicts[verdict.toLowerCase()] || verdict;
   };
 
-  const getMicroplasticsColor = (risk: string) => {
+  const getMicroplasticsStyle = (risk: string) => {
     switch (risk.toLowerCase()) {
-      case "low": return "text-green-600";
-      case "medium": return "text-yellow-600";
-      case "high": return "text-red-600";
-      default: return "text-gray-600";
+      case "low": return "bg-secondary-design/5 text-secondary-design";
+      case "medium": return "bg-tertiary-design/5 text-tertiary-design";
+      case "high": return "bg-error-design/5 text-error-design";
+      default: return "bg-surface-highest text-primary-design";
     }
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-xl overflow-hidden border border-gray-100 mt-8">
-      <div className="p-6 border-b border-gray-100 flex justify-between items-start">
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900">{result.product_name || dictionary.unknownProduct}</h2>
-          <p className="text-gray-500">{result.brand || dictionary.unknownBrand} • {result.category || dictionary.unknownCategory}</p>
+    <div className="w-full max-w-4xl bg-surface-lowest shadow-ambient rounded-lg overflow-hidden relative">
+      <div className="p-10 flex flex-col sm:flex-row justify-between items-start gap-8">
+        <div className="space-y-4">
+          <h2 className="text-4xl sm:text-5xl font-bold text-on-surface tracking-tight leading-none">
+            {result.product_name || dictionary.unknownProduct}
+          </h2>
+          <div className="flex flex-wrap gap-3 items-center text-primary-design">
+            <span className="text-lg font-medium">{result.brand || dictionary.unknownBrand}</span>
+            <span className="w-1.5 h-1.5 bg-surface-highest rounded-full"></span>
+            <span className="text-lg font-light italic opacity-70">{result.category || dictionary.unknownCategory}</span>
+          </div>
         </div>
-        <div className={`px-4 py-2 rounded-full border font-bold uppercase tracking-wider text-sm ${getVerdictColor(result.verdict)}`}>
+        <div className={`px-8 py-3 rounded-full border-2 font-black uppercase tracking-widest text-sm ${getVerdictStyle(result.verdict)}`}>
           {getVerdictLabel(result.verdict)}
         </div>
       </div>
 
-      <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">{dictionary.scores}</h3>
-          <ProgressBar label={dictionary.sustainability} value={result.scores.sustainability} />
-          <ProgressBar label={dictionary.durability} value={result.scores.durability} />
-          <ProgressBar label={dictionary.comfort} value={result.scores.comfort} />
+      <div className="p-10 grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="space-y-10">
+          <div>
+            <h3 className="text-xs font-black text-primary-design uppercase tracking-[0.2em] mb-8">{dictionary.scores}</h3>
+            <ProgressBar label={dictionary.sustainability} value={result.scores.sustainability} />
+            <ProgressBar label={dictionary.durability} value={result.scores.durability} />
+            <ProgressBar label={dictionary.comfort} value={result.scores.comfort} />
+          </div>
           
-          <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-            <span className="font-medium text-gray-700">{dictionary.microplasticsRisk}: </span>
-            <span className={`font-bold capitalize ${getMicroplasticsColor(result.microplastics_risk)}`}>
+          <div className={`p-6 rounded-lg flex items-center justify-between ${getMicroplasticsStyle(result.microplastics_risk)}`}>
+            <span className="text-sm font-black uppercase tracking-widest opacity-60">{dictionary.microplasticsRisk}</span>
+            <span className="font-bold capitalize text-lg">
               {result.microplastics_risk}
             </span>
           </div>
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">{dictionary.materials}</h3>
-          <ul className="space-y-2">
+          <h3 className="text-xs font-black text-primary-design uppercase tracking-[0.2em] mb-8">{dictionary.materials}</h3>
+          <ul className="space-y-4">
             {result.materials.map((mat, index) => (
-              <li key={index} className="flex justify-between items-center p-2 hover:bg-gray-50 rounded">
-                <span className="text-gray-700">{mat.name}</span>
-                <span className="font-medium text-gray-900">{mat.percentage}%</span>
+              <li key={index} className="flex justify-between items-center group">
+                <div className="flex items-center gap-4">
+                  <span className="w-3 h-3 rounded-full bg-secondary-design/20 group-hover:bg-secondary-design transition-colors"></span>
+                  <span className="text-lg font-medium text-on-surface">{mat.name}</span>
+                </div>
+                <div className="flex-1 border-b border-surface-low border-dotted mx-4 mb-1.5"></div>
+                <span className="font-black text-on-surface tabular-nums">{mat.percentage}%</span>
               </li>
             ))}
             {result.materials.length === 0 && (
-              <li className="text-gray-500 italic">{dictionary.noMaterials}</li>
+              <li className="text-primary-design italic opacity-60">{dictionary.noMaterials}</li>
             )}
           </ul>
         </div>
       </div>
 
-      <div className="p-6 bg-gray-50 border-t border-gray-100">
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">{dictionary.summary}</h3>
-        <p className="text-gray-700 leading-relaxed">{result.summary}</p>
+      <div className="p-10 bg-surface-low/50 border-t border-surface-highest/10">
+        <h3 className="text-xs font-black text-primary-design uppercase tracking-[0.2em] mb-4">{dictionary.summary}</h3>
+        <p className="text-xl text-on-surface leading-relaxed font-light italic">
+          &ldquo;{result.summary}&rdquo;
+        </p>
       </div>
     </div>
   );

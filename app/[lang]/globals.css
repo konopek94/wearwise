@@ -3,22 +3,42 @@
 @theme {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
+  --color-surface: #f8f9fa;
+  --color-surface-low: #f3f4f5;
+  --color-surface-highest: #e1e3e4;
+  --color-surface-lowest: #ffffff;
+  --color-on-surface: #191c1d;
+  
+  --color-primary-design: #575e70;
+  --color-secondary-design: #006c49;
+  --color-tertiary-design: #795900;
+  --color-error-design: #ba1a1a;
+  
+  --radius-lg: 1rem;
+  --radius-default: 0.5rem;
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #f8f9fa;
+  --foreground: #191c1d;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+}
+
+/* Editorial shadows */
+.shadow-ambient {
+  box-shadow: 0 20px 40px rgba(25, 28, 29, 0.04);
 }

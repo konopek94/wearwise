@@ -78,47 +78,49 @@ export default function HomeContent({ dictionary, lang }: HomeContentProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex justify-end mb-4">
+    <div className="min-h-screen bg-surface py-24 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto">
+        <div className="fixed top-6 right-6 z-50 glass px-4 py-2 rounded-full shadow-ambient">
           <LanguageSwitcher />
         </div>
         
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">
+        <div className="mb-24 text-left max-w-3xl">
+          <h1 className="text-6xl sm:text-7xl font-bold text-on-surface mb-8 tracking-tighter">
             {dictionary.title}
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-2xl text-primary-design leading-relaxed font-light">
             {dictionary.description}
           </p>
         </div>
 
-        <InputForm 
-          onAnalyze={handleAnalyze} 
-          isLoading={isLoading} 
-          dictionary={dictionary.inputForm} 
-          lang={lang} 
-          errorMessages={dictionary.error}
-        />
+        <div className="space-y-32">
+          <section>
+            <InputForm 
+              onAnalyze={handleAnalyze} 
+              isLoading={isLoading} 
+              dictionary={dictionary.inputForm} 
+              lang={lang} 
+              errorMessages={dictionary.error}
+            />
 
-        {error && (
-          <div className="mt-8 p-4 bg-red-50 border border-red-200 rounded-md text-red-700 text-center max-w-2xl mx-auto">
-            {error}
+            {error && (
+              <div className="mt-12 p-6 bg-error-design/10 border-l-4 border-error-design rounded-r-lg text-error-design font-medium max-w-2xl">
+                {error}
+              </div>
+            )}
+          </section>
+
+          {result && (
+            <section className="animate-in fade-in slide-in-from-bottom-8 duration-700">
+              <ResultsCard result={result} dictionary={dictionary.results} />
+            </section>
+          )}
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 pt-12 border-t border-surface-highest/20">
+            <HistoryList history={history} onSelect={handleSelectHistory} dictionary={{ ...dictionary.history, verdicts: dictionary.results.verdicts }} />
+            <Top10List onSelect={handleSelectHistory} dictionary={{ ...dictionary.history, verdicts: dictionary.results.verdicts }} />
           </div>
-        )}
-
-        {result && <ResultsCard result={result} dictionary={dictionary.results} />}
-
-        <HistoryList 
-          history={history} 
-          onSelect={handleSelectHistory} 
-          dictionary={{ ...dictionary.history, verdicts: dictionary.results.verdicts }} 
-        />
-        
-        <Top10List 
-          onSelect={handleSelectHistory} 
-          dictionary={{ ...dictionary.history, verdicts: dictionary.results.verdicts }} 
-        />
+        </div>
       </div>
     </div>
   );

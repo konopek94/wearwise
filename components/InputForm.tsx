@@ -60,9 +60,9 @@ export default function InputForm({ onAnalyze, isLoading, dictionary, lang, erro
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto space-y-4">
-      <div className="flex flex-col space-y-2">
-        <label htmlFor="text-input" className="text-sm font-medium text-gray-700">
+    <form onSubmit={handleSubmit} className="w-full max-w-3xl space-y-8">
+      <div className="flex flex-col space-y-4">
+        <label htmlFor="text-input" className="text-sm font-semibold text-primary-design uppercase tracking-widest">
           {dictionary.label}
         </label>
         <textarea
@@ -70,13 +70,13 @@ export default function InputForm({ onAnalyze, isLoading, dictionary, lang, erro
           value={text}
           onChange={handleTextChange}
           placeholder={dictionary.placeholder}
-          className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 min-h-30 text-gray-700"
+          className="w-full p-6 bg-surface-low border-none rounded-lg shadow-inner focus:bg-surface-lowest focus:ring-0 focus:shadow-ambient transition-all duration-300 min-h-48 text-xl text-on-surface placeholder:text-surface-highest/60 leading-relaxed font-light"
           disabled={isLoading || ocrLoading}
         />
       </div>
 
-      <div className="flex items-center justify-between">
-        <div className="relative">
+      <div className="flex flex-col sm:flex-row items-center gap-6">
+        <div className="relative w-full sm:w-auto">
           <input
             type="file"
             accept="image/*"
@@ -88,18 +88,28 @@ export default function InputForm({ onAnalyze, isLoading, dictionary, lang, erro
           />
           <label
             htmlFor="image-upload"
-            className="cursor-pointer inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+            className="cursor-pointer w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 border-none shadow-ambient text-base font-semibold rounded-lg text-on-surface bg-surface-highest hover:bg-surface-highest/80 transition-all active:scale-95 disabled:opacity-50"
           >
-            {ocrLoading ? dictionary.scanning : dictionary.uploadButton}
+            {ocrLoading ? (
+              <span className="flex items-center gap-2">
+                <span className="w-2 h-2 bg-on-surface rounded-full animate-bounce"></span>
+                {dictionary.scanning}
+              </span>
+            ) : dictionary.uploadButton}
           </label>
         </div>
 
         <button
           type="submit"
           disabled={!text.trim() || isLoading || ocrLoading}
-          className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full sm:w-auto inline-flex items-center justify-center px-12 py-4 border-none text-lg font-bold rounded-lg shadow-ambient text-white bg-secondary-design hover:bg-secondary-design/90 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {isLoading ? dictionary.analyzing : dictionary.analyzeButton}
+          {isLoading ? (
+            <span className="flex items-center gap-3">
+              <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+              {dictionary.analyzing}
+            </span>
+          ) : dictionary.analyzeButton}
         </button>
       </div>
     </form>
