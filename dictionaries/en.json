@@ -1,0 +1,41 @@
+{
+  "title": "WearWise",
+  "description": "Analyze your clothing for sustainability, durability, and microplastics risk. Type the materials or upload a photo of the label.",
+  "inputForm": {
+    "label": "Enter product name, brand, or material composition",
+    "placeholder": "e.g., 100% organic cotton t-shirt",
+    "uploadButton": "Upload Label Image",
+    "scanning": "Scanning image...",
+    "analyzeButton": "Analyze Product",
+    "analyzing": "Analyzing..."
+  },
+  "results": {
+    "unknownProduct": "Unknown Product",
+    "unknownBrand": "Unknown Brand",
+    "unknownCategory": "Unknown Category",
+    "scores": "Scores",
+    "sustainability": "Sustainability",
+    "durability": "Durability",
+    "comfort": "Comfort",
+    "microplasticsRisk": "Microplastics Risk",
+    "materials": "Materials",
+    "noMaterials": "No materials identified.",
+    "summary": "Summary",
+    "verdicts": {
+      "buy": "Buy",
+      "consider": "Consider",
+      "avoid": "Avoid"
+    }
+  },
+  "history": {
+    "title": "Recent Searches",
+    "top10": "🏆 Top 10 Searched Products",
+    "loadingTop": "Loading top products...",
+    "unknownProduct": "Unknown Product",
+    "unknownBrand": "Unknown Brand"
+  },
+  "error": {
+    "ocrFailed": "Failed to read text from image. Please try again or type manually.",
+    "analysisFailed": "Failed to analyze product. Please try again."
+  }
+}

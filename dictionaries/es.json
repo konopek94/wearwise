@@ -1,0 +1,41 @@
+{
+  "title": "WearWise",
+  "description": "Analiza tu ropa en cuanto a sostenibilidad, durabilidad y riesgo de microplásticos. Escribe los materiales o sube una foto de la etiqueta.",
+  "inputForm": {
+    "label": "Introduce el nombre del producto, la marca o la composición del material",
+    "placeholder": "p. ej., camiseta de algodón 100% orgánico",
+    "uploadButton": "Subir imagen de la etiqueta",
+    "scanning": "Escaneando imagen...",
+    "analyzeButton": "Analizar producto",
+    "analyzing": "Analizando..."
+  },
+  "results": {
+    "unknownProduct": "Producto desconocido",
+    "unknownBrand": "Marca desconocida",
+    "unknownCategory": "Categoría desconocida",
+    "scores": "Puntuaciones",
+    "sustainability": "Sostenibilidad",
+    "durability": "Durabilidad",
+    "comfort": "Comodidad",
+    "microplasticsRisk": "Riesgo de microplásticos",
+    "materials": "Materiales",
+    "noMaterials": "No se han identificado materiales.",
+    "summary": "Resumen",
+    "verdicts": {
+      "buy": "Comprar",
+      "consider": "Considerar",
+      "avoid": "Evitar"
+    }
+  },
+  "history": {
+    "title": "Búsquedas recientes",
+    "top10": "🏆 Los 10 productos más buscados",
+    "loadingTop": "Cargando los mejores productos...",
+    "unknownProduct": "Producto desconocido",
+    "unknownBrand": "Marca desconocida"
+  },
+  "error": {
+    "ocrFailed": "Error al leer el texto de la imagen. Inténtalo de nuevo o escribe manualmente.",
+    "analysisFailed": "Error al analizar el producto. Inténtalo de nuevo."
+  }
+}

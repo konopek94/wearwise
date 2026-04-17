@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { AnalysisResult } from "../types";
+import { AnalysisResult, Dictionary } from "../types";
 
 interface Top10ListProps {
   onSelect: (result: AnalysisResult) => void;
+  dictionary: Dictionary["history"] & { verdicts: Dictionary["results"]["verdicts"] };
 }
 
-export default function Top10List({ onSelect }: Top10ListProps) {
+export default function Top10List({ onSelect, dictionary }: Top10ListProps) {
   const [topProducts, setTopProducts] = useState<AnalysisResult[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -27,12 +28,16 @@ export default function Top10List({ onSelect }: Top10ListProps) {
     fetchTop10();
   }, []);
 
-  if (isLoading) return <div className="mt-12 text-center text-sm text-gray-500">Loading top products...</div>;
+  if (isLoading) return <div className="mt-12 text-center text-sm text-gray-500">{dictionary.loadingTop}</div>;
   if (topProducts.length === 0) return null;
+
+  const getVerdictLabel = (verdict: string) => {
+    return (dictionary.verdicts as Record<string, string>)?.[verdict.toLowerCase()] || verdict;
+  };
 
   return (
     <div className="mt-12 w-full max-w-2xl mx-auto">
-      <h3 className="text-xl font-bold text-gray-900 mb-4">🏆 Top 10 Searched Products</h3>
+      <h3 className="text-xl font-bold text-gray-900 mb-4">{dictionary.top10}</h3>
       <div className="bg-white shadow-sm rounded-xl overflow-hidden border border-gray-100">
         <ul className="divide-y divide-gray-100">
           {topProducts.map((item, index) => (
@@ -44,8 +49,8 @@ export default function Top10List({ onSelect }: Top10ListProps) {
               <div className="flex items-center space-x-4">
                 <span className="text-lg font-bold text-gray-400 w-6 text-center">{index + 1}</span>
                 <div>
-                  <p className="text-sm font-medium text-gray-900">{item.product_name || "Unknown Product"}</p>
-                  <p className="text-xs text-gray-500">{item.brand || "Unknown Brand"}</p>
+                  <p className="text-sm font-medium text-gray-900">{item.product_name || dictionary.unknownProduct}</p>
+                  <p className="text-xs text-gray-500">{item.brand || dictionary.unknownBrand}</p>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
@@ -55,7 +60,7 @@ export default function Top10List({ onSelect }: Top10ListProps) {
                   item.verdict === 'avoid' ? 'bg-red-100 text-red-800' :
                   'bg-gray-100 text-gray-800'
                 }`}>
-                  {item.verdict}
+                  {getVerdictLabel(item.verdict)}
                 </span>
                 <span className="text-gray-400 text-sm">→</span>
               </div>

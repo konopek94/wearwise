@@ -52,11 +52,20 @@ const analysisSchema: Schema = {
   ],
 };
 
-export async function analyzeProduct(text: string): Promise<AnalysisResult> {
+export async function analyzeProduct(text: string, lang: string = "en"): Promise<AnalysisResult> {
+  const languageNames: Record<string, string> = {
+    en: "English",
+    pl: "Polish",
+    de: "German",
+    es: "Spanish",
+  };
+
+  const targetLanguage = languageNames[lang] || "English";
+
   const prompt = `
     Analyze the following text which describes a clothing or footwear product, potentially including its material composition (from user input or OCR of a clothing label).
     
-    Extract the product name, brand, and category if available. If not, use "Unknown".
+    Extract the product name, brand, and category if available. If not, use "Unknown" (in ${targetLanguage}).
     Extract the materials and their percentages. Normalize material names (e.g., "cotton", "polyester", "recycled polyester"). If no percentages are given, estimate based on standard industry blends, but keep total at 100%.
     
     Evaluate the materials based on:
@@ -69,6 +78,9 @@ export async function analyzeProduct(text: string): Promise<AnalysisResult> {
     Provide a final verdict: "buy" (highly sustainable/durable), "consider" (acceptable compromises), or "avoid" (harmful materials, fast fashion indicators).
     
     Provide a brief summary (2-3 sentences) explaining your scores and verdict.
+
+    IMPORTANT: Provide the "product_name", "brand", "category", and "summary" in ${targetLanguage}.
+    The "verdict" and "microplastics_risk" must remain as the specified enum values in English ("buy"/"consider"/"avoid" and "low"/"medium"/"high").
 
     Text to analyze:
     "${text}"

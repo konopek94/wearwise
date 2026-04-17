@@ -1,0 +1,41 @@
+{
+  "title": "WearWise",
+  "description": "Analizuj swoją odzież pod kątem ekologii, trwałości i ryzyka mikroplastiku. Wpisz skład lub prześlij zdjęcie metki.",
+  "inputForm": {
+    "label": "Wpisz nazwę produktu, markę lub skład materiałowy",
+    "placeholder": "np. koszulka z 100% bawełny organicznej",
+    "uploadButton": "Prześlij zdjęcie metki",
+    "scanning": "Skanowanie obrazu...",
+    "analyzeButton": "Analizuj produkt",
+    "analyzing": "Analizowanie..."
+  },
+  "results": {
+    "unknownProduct": "Nieznany produkt",
+    "unknownBrand": "Nieznana marka",
+    "unknownCategory": "Nieznana kategoria",
+    "scores": "Wyniki",
+    "sustainability": "Zrównoważony rozwój",
+    "durability": "Trwałość",
+    "comfort": "Komfort",
+    "microplasticsRisk": "Ryzyko mikroplastiku",
+    "materials": "Materiały",
+    "noMaterials": "Nie zidentyfikowano materiałów.",
+    "summary": "Podsumowanie",
+    "verdicts": {
+      "buy": "Kupuj",
+      "consider": "Rozważ",
+      "avoid": "Unikaj"
+    }
+  },
+  "history": {
+    "title": "Ostatnie wyszukiwania",
+    "top10": "🏆 Top 10 wyszukiwanych produktów",
+    "loadingTop": "Ładowanie top produktów...",
+    "unknownProduct": "Nieznany produkt",
+    "unknownBrand": "Nieznana marka"
+  },
+  "error": {
+    "ocrFailed": "Nie udało się odczytać tekstu z obrazu. Spróbuj ponownie lub wpisz ręcznie.",
+    "analysisFailed": "Nie udało się przeanalizować produktu. Spróbuj ponownie."
+  }
+}

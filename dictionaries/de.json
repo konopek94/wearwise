@@ -1,0 +1,41 @@
+{
+  "title": "WearWise",
+  "description": "Analysieren Sie Ihre Kleidung auf Nachhaltigkeit, Haltbarkeit und Mikroplastikrisiko. Geben Sie die Materialien ein oder laden Sie ein Foto des Etiketts hoch.",
+  "inputForm": {
+    "label": "Produktname, Marke oder Materialzusammensetzung eingeben",
+    "placeholder": "z.B. T-Shirt aus 100% Bio-Baumwolle",
+    "uploadButton": "Etikett-Foto hochladen",
+    "scanning": "Bild wird gescannt...",
+    "analyzeButton": "Produkt analysieren",
+    "analyzing": "Wird analysiert..."
+  },
+  "results": {
+    "unknownProduct": "Unbekanntes Produkt",
+    "unknownBrand": "Unbekannte Marke",
+    "unknownCategory": "Unbekannte Kategorie",
+    "scores": "Bewertungen",
+    "sustainability": "Nachhaltigkeit",
+    "durability": "Haltbarkeit",
+    "comfort": "Komfort",
+    "microplasticsRisk": "Mikroplastik-Risiko",
+    "materials": "Materialien",
+    "noMaterials": "Keine Materialien identifiziert.",
+    "summary": "Zusammenfassung",
+    "verdicts": {
+      "buy": "Kaufen",
+      "consider": "Überlegen",
+      "avoid": "Vermeiden"
+    }
+  },
+  "history": {
+    "title": "Letzte Suchen",
+    "top10": "🏆 Top 10 der gesuchten Produkte",
+    "loadingTop": "Top-Produkte werden geladen...",
+    "unknownProduct": "Unbekanntes Produkt",
+    "unknownBrand": "Unbekannte Marke"
+  },
+  "error": {
+    "ocrFailed": "Text konnte nicht aus dem Bild gelesen werden. Bitte versuchen Sie es erneut oder geben Sie ihn manuell ein.",
+    "analysisFailed": "Produktanalyse fehlgeschlagen. Bitte versuchen Sie es erneut."
+  }
+}

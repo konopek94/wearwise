@@ -5,13 +5,13 @@ import { recordSearch } from "../../../lib/store";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { text } = body;
+    const { text, lang } = body;
 
     if (!text || typeof text !== "string") {
       return NextResponse.json({ error: "Text is required" }, { status: 400 });
     }
 
-    const result = await analyzeProduct(text);
+    const result = await analyzeProduct(text, lang);
     
     // Record search globally
     recordSearch(result);
