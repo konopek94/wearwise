@@ -38,7 +38,7 @@ export default function ResultsCard({ result, dictionary }: ResultsCardProps) {
   };
 
   const getVerdictLabel = (verdict: string) => {
-    return dictionary.verdicts[verdict.toLowerCase()] || verdict;
+    return (dictionary.verdicts as Record<string, string>)[verdict.toLowerCase()] || verdict;
   };
 
   const getMicroplasticsStyle = (risk: string) => {
