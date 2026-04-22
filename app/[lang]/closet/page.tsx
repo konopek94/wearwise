@@ -18,7 +18,7 @@ export default async function ClosetPage(props: {
 
   return (
     <div className="min-h-screen bg-surface py-24 px-6">
-      <ClosetDashboard initialItems={items || []} dictionary={dictionary} />
+      <ClosetDashboard initialItems={items || []} dictionary={dictionary} lang={locale} />
     </div>
   );
 }

@@ -38,6 +38,11 @@
     "ocrFailed": "Nie udało się odczytać tekstu z obrazu. Spróbuj ponownie lub wpisz ręcznie.",
     "analysisFailed": "Nie udało się przeanalizować produktu. Spróbuj ponownie."
   },
+  "auth": {
+    "login": "Zaloguj",
+    "logout": "Wyloguj",
+    "closet": "Moja Szafa"
+  },
   "login": {
     "title": "Witaj ponownie",
     "subtitle": "Zaloguj się, aby zarządzać swoją garderobą i śledzić swój wpływ.",
@@ -45,7 +50,7 @@
     "emailPlaceholder": "np. kurator@wearwise.app",
     "sendLink": "Wyślij Magic Link",
     "sending": "Wysyłanie...",
-    "checkEmail": "Sprawdź skrzynkę e-mail, aby znaleźć link do logowania!",
-    "error": "Coś poszło nie tak. Spróbuj ponownie."
+    "checkEmail": "Sprawdź skrzynkę odbiorczą, aby odebrać link!",
+    "error": "Nie udało się wysłać linku. Spróbuj ponownie."
   }
 }

@@ -4,14 +4,25 @@ import { ClosetItem, Dictionary } from "../types";
 import { calculateAnalytics } from "../lib/analytics";
 import AnalyticsCards from "./AnalyticsCards";
 import ResultsCard from "./ResultsCard";
+import AuthButton from "./AuthButton";
+import LanguageSwitcher from "./LanguageSwitcher";
+import { Locale } from "../i18n-config";
 
-export default function ClosetDashboard({ initialItems, dictionary }: { initialItems: ClosetItem[], dictionary: Dictionary }) {
+export default function ClosetDashboard({ initialItems, dictionary, lang }: { initialItems: ClosetItem[], dictionary: Dictionary, lang: Locale }) {
   const [items] = useState(initialItems);
   const analytics = useMemo(() => calculateAnalytics(items), [items]);
 
   return (
     <div className="max-w-5xl mx-auto">
-      <h1 className="text-7xl font-bold text-on-surface mb-16 tracking-tighter">Your Closet</h1>
+      <div className="fixed top-6 right-6 z-50 glass px-6 py-3 rounded-full shadow-ambient flex items-center gap-6">
+        <AuthButton dictionary={dictionary.auth} lang={lang} />
+        <div className="w-px h-4 bg-surface-highest/30"></div>
+        <LanguageSwitcher />
+      </div>
+
+      <h1 className="text-7xl font-bold text-on-surface mb-16 tracking-tighter">
+        {dictionary.auth.closet}
+      </h1>
       <AnalyticsCards analytics={analytics} />
       <div className="space-y-12">
         {items.map(item => (

@@ -83,4 +83,19 @@ export interface Dictionary {
     ocrFailed: string;
     analysisFailed: string;
   };
-}
+  auth: {
+    login: string;
+    logout: string;
+    closet: string;
+  };
+  login: {
+    title: string;
+    subtitle: string;
+    emailLabel: string;
+    emailPlaceholder: string;
+    sendLink: string;
+    sending: string;
+    checkEmail: string;
+    error: string;
+  };
+  }

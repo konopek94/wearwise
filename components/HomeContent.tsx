@@ -6,6 +6,7 @@ import ResultsCard from "./ResultsCard";
 import HistoryList from "./HistoryList";
 import Top10List from "./Top10List";
 import LanguageSwitcher from "./LanguageSwitcher";
+import AuthButton from "./AuthButton";
 import { AnalysisResult, Dictionary } from "../types";
 import { Locale } from "../i18n-config";
 import { supabase } from "../lib/supabase";
@@ -111,7 +112,9 @@ export default function HomeContent({ dictionary, lang }: HomeContentProps) {
   return (
     <div className="min-h-screen bg-surface py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
-        <div className="fixed top-6 right-6 z-50 glass px-4 py-2 rounded-full shadow-ambient">
+        <div className="fixed top-6 right-6 z-50 glass px-6 py-3 rounded-full shadow-ambient flex items-center gap-6">
+          <AuthButton dictionary={dictionary.auth} lang={lang} />
+          <div className="w-px h-4 bg-surface-highest/30"></div>
           <LanguageSwitcher />
         </div>
         

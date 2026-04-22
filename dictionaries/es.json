@@ -2,7 +2,7 @@
   "title": "WearWise",
   "description": "Analiza tu ropa en cuanto a sostenibilidad, durabilidad y riesgo de microplásticos. Escribe los materiales o sube una foto de la etiqueta.",
   "inputForm": {
-    "label": "Introduce el nombre del producto, la marca o la composición del material",
+    "label": "Introduce el nombre del producto, la marca o la composition del material",
     "placeholder": "p. ej., camiseta de algodón 100% orgánico",
     "uploadButton": "Subir imagen de la etiqueta",
     "scanning": "Escaneando imagen...",
@@ -38,6 +38,11 @@
     "ocrFailed": "Error al leer el texto de la imagen. Inténtalo de nuevo o escribe manualmente.",
     "analysisFailed": "Error al analizar el producto. Inténtalo de nuevo."
   },
+  "auth": {
+    "login": "Entrar",
+    "logout": "Salir",
+    "closet": "Mi Armario"
+  },
   "login": {
     "title": "Bienvenido de nuevo",
     "subtitle": "Inicia sesión para gestionar tu armario y rastrear tu impacto.",
@@ -45,7 +50,7 @@
     "emailPlaceholder": "p. ej., curador@wearwise.app",
     "sendLink": "Enviar Magic Link",
     "sending": "Enviando...",
-    "checkEmail": "¡Revisa tu correo electrónico para ver el enlace de inicio de sesión!",
-    "error": "Algo salió mal. Por favor, inténtalo de nuevo."
+    "checkEmail": "¡Revisa tu correo para el enlace mágico!",
+    "error": "Error al enviar el enlace mágico. Inténtalo de nuevo."
   }
 }
