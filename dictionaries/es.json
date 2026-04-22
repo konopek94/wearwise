@@ -37,5 +37,15 @@
   "error": {
     "ocrFailed": "Error al leer el texto de la imagen. Inténtalo de nuevo o escribe manualmente.",
     "analysisFailed": "Error al analizar el producto. Inténtalo de nuevo."
+  },
+  "login": {
+    "title": "Bienvenido de nuevo",
+    "subtitle": "Inicia sesión para gestionar tu armario y rastrear tu impacto.",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "p. ej., curador@wearwise.app",
+    "sendLink": "Enviar Magic Link",
+    "sending": "Enviando...",
+    "checkEmail": "¡Revisa tu correo electrónico para ver el enlace de inicio de sesión!",
+    "error": "Algo salió mal. Por favor, inténtalo de nuevo."
   }
 }

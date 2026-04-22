@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { i18n } from "./i18n-config";
+import { supabase } from "./lib/supabase";
 
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
@@ -23,7 +24,7 @@ function getLocale(request: NextRequest): string | undefined {
   return locale;
 }
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // // `/_next/` and `/api/` are ignored by the middleware, but we should be explicit
@@ -58,6 +59,22 @@ export function middleware(request: NextRequest) {
         request.url
       )
     );
+  }
+
+  // Auth protection for /closet
+  if (pathname.includes("/closet")) {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (!session) {
+      const locale =
+        i18n.locales.find(
+          (l) => pathname.startsWith(`/${l}/`) || pathname === `/${l}`
+        ) || i18n.defaultLocale;
+
+      return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
+    }
   }
 }
 

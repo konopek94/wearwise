@@ -37,5 +37,15 @@
   "error": {
     "ocrFailed": "Failed to read text from image. Please try again or type manually.",
     "analysisFailed": "Failed to analyze product. Please try again."
+  },
+  "login": {
+    "title": "Welcome Back",
+    "subtitle": "Sign in to manage your wardrobe and track your impact.",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "e.g., curator@wearwise.app",
+    "sendLink": "Send Magic Link",
+    "sending": "Sending...",
+    "checkEmail": "Check your email for the login link!",
+    "error": "Something went wrong. Please try again."
   }
 }

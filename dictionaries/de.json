@@ -37,5 +37,15 @@
   "error": {
     "ocrFailed": "Text konnte nicht aus dem Bild gelesen werden. Bitte versuchen Sie es erneut oder geben Sie ihn manuell ein.",
     "analysisFailed": "Produktanalyse fehlgeschlagen. Bitte versuchen Sie es erneut."
+  },
+  "login": {
+    "title": "Willkommen zurück",
+    "subtitle": "Melden Sie sich an, um Ihre Garderobe zu verwalten und Ihre Auswirkungen zu verfolgen.",
+    "emailLabel": "E-Mail-Adresse",
+    "emailPlaceholder": "z.B. kurator@wearwise.app",
+    "sendLink": "Magic Link senden",
+    "sending": "Wird gesendet...",
+    "checkEmail": "Überprüfen Sie Ihre E-Mails auf den Login-Link!",
+    "error": "Etwas ist schief gelaufen. Bitte versuchen Sie es erneut."
   }
 }
