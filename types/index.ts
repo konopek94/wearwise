@@ -20,6 +20,29 @@ export interface AnalysisResult {
   summary: string;
 }
 
+export interface ClosetItem {
+  id: string;
+  user_id: string;
+  product_name: string;
+  brand: string;
+  category: string;
+  verdict: "buy" | "consider" | "avoid";
+  microplastics_risk: "low" | "medium" | "high";
+  data: AnalysisResult;
+  created_at: string;
+}
+
+export interface WardrobeAnalytics {
+  sustainabilityScore: number;
+  naturalPercentage: number;
+  syntheticPercentage: number;
+  riskProfile: {
+    low: number;
+    medium: number;
+    high: number;
+  };
+}
+
 export interface Dictionary {
   title: string;
   description: string;
