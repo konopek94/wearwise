@@ -24,7 +24,7 @@ function getLocale(request: NextRequest): string | undefined {
   return locale;
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // // `/_next/` and `/api/` are ignored by the middleware, but we should be explicit
