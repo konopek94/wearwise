@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { i18n } from "./i18n-config";
-import { supabase } from "./lib/supabase";
+import { createServerClient } from "@supabase/ssr";
 
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
@@ -62,12 +62,46 @@ export async function middleware(request: NextRequest) {
   }
 
   // Auth protection for /closet
-  if (pathname.includes("/closet")) {
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
+  const isClosetPath = i18n.locales.some(
+    (locale) =>
+      pathname === `/${locale}/closet` ||
+      pathname.startsWith(`/${locale}/closet/`)
+  );
 
-    if (!session) {
+  if (isClosetPath) {
+    let response = NextResponse.next({
+      request,
+    });
+
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          getAll() {
+            return request.cookies.getAll();
+          },
+          setAll(cookiesToSet) {
+            cookiesToSet.forEach(({ name, value }) =>
+              request.cookies.set(name, value)
+            );
+            response = NextResponse.next({
+              request,
+            });
+            cookiesToSet.forEach(({ name, value, options }) =>
+              response.cookies.set(name, value, options)
+            );
+          },
+        },
+      }
+    );
+
+    // Use getUser() instead of getSession() for better security
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
       const locale =
         i18n.locales.find(
           (l) => pathname.startsWith(`/${l}/`) || pathname === `/${l}`
@@ -75,6 +109,8 @@ export async function middleware(request: NextRequest) {
 
       return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
     }
+
+    return response;
   }
 }
 

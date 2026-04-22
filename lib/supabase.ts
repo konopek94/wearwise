@@ -1,18 +1,26 @@
 import { createBrowserClient } from '@supabase/ssr';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const getEnv = () => {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-if (!supabaseUrl) {
-  throw new Error('Missing environment variable: NEXT_PUBLIC_SUPABASE_URL');
-}
-
-if (!supabaseAnonKey) {
-  throw new Error('Missing environment variable: NEXT_PUBLIC_SUPABASE_ANON_KEY');
-}
+  if (!supabaseUrl || !supabaseAnonKey) {
+    return { 
+      url: supabaseUrl || 'https://placeholder.supabase.co', 
+      key: supabaseAnonKey || 'placeholder' 
+    };
+  }
+  return { url: supabaseUrl, key: supabaseAnonKey };
+};
 
 // For browser-side usage
-export const createClient = () => createBrowserClient(supabaseUrl, supabaseAnonKey);
+export const createClient = () => {
+  const { url, key } = getEnv();
+  return createBrowserClient(url, key);
+};
 
-// Maintain the old singleton for now as a browser client to avoid breaking changes in components
-export const supabase = createClient();
+// Maintain the old singleton for now as a browser client
+export const supabase = (function() {
+  const { url, key } = getEnv();
+  return createBrowserClient(url, key);
+})();

@@ -1,5 +1,6 @@
 import React from "react";
 import { AnalysisResult, Dictionary } from "../types";
+import SaveToClosetButton from "./SaveToClosetButton";
 
 interface ResultsCardProps {
   result: AnalysisResult;
@@ -63,8 +64,11 @@ export default function ResultsCard({ result, dictionary }: ResultsCardProps) {
             <span className="text-lg font-light italic opacity-70">{result.category || dictionary.unknownCategory}</span>
           </div>
         </div>
-        <div className={`px-8 py-3 rounded-full border-2 font-black uppercase tracking-widest text-sm ${getVerdictStyle(result.verdict)}`}>
-          {getVerdictLabel(result.verdict)}
+        <div className="flex flex-col items-end gap-4">
+          <div className={`px-8 py-3 rounded-full border-2 font-black uppercase tracking-widest text-sm ${getVerdictStyle(result.verdict)}`}>
+            {getVerdictLabel(result.verdict)}
+          </div>
+          <SaveToClosetButton result={result} />
         </div>
       </div>
 

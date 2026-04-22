@@ -84,4 +84,59 @@ describe('calculateAnalytics', () => {
       high: 0
     });
   });
+
+  it('handles items with no materials or all synthetic materials', () => {
+    const syntheticItems: ClosetItem[] = [
+      {
+        id: '1',
+        user_id: 'u1',
+        product_name: 'Polyester T-Shirt',
+        brand: 'Brand A',
+        category: 'T-Shirt',
+        verdict: 'avoid',
+        microplastics_risk: 'high',
+        created_at: new Date().toISOString(),
+        data: {
+          product_name: 'Polyester T-Shirt',
+          brand: 'Brand A',
+          category: 'T-Shirt',
+          materials: [{ name: 'Polyester', percentage: 100 }],
+          scores: { sustainability: 10, durability: 90, comfort: 40 },
+          microplastics_risk: 'high',
+          verdict: 'avoid',
+          summary: 'Synthetic'
+        }
+      },
+      {
+        id: '2',
+        user_id: 'u1',
+        product_name: 'Unknown Item',
+        brand: 'Brand B',
+        category: 'Unknown',
+        verdict: 'consider',
+        microplastics_risk: 'medium',
+        created_at: new Date().toISOString(),
+        data: {
+          product_name: 'Unknown Item',
+          brand: 'Brand B',
+          category: 'Unknown',
+          materials: [], // Empty materials
+          scores: { sustainability: 50, durability: 50, comfort: 50 },
+          microplastics_risk: 'medium',
+          verdict: 'consider',
+          summary: 'No materials listed'
+        }
+      }
+    ];
+
+    const result = calculateAnalytics(syntheticItems);
+
+    expect(result.naturalPercentage).toBe(0);
+    expect(result.syntheticPercentage).toBe(100);
+    expect(result.riskProfile).toEqual({
+      low: 0,
+      medium: 50,
+      high: 50
+    });
+  });
 });

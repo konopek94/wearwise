@@ -231,9 +231,153 @@ git commit -m "feat: add analytics engine for wardrobe health"
 
 **Files:**
 - Create: `app/[lang]/closet/page.tsx`
+- Create: `components/ClosetDashboard.tsx`
+- Create: `components/AnalyticsCards.tsx`
+- Create: `components/SaveToClosetButton.tsx`
+- Modify: `components/ResultsCard.tsx`
 - Modify: `components/HomeContent.tsx`
 
-- [ ] **Step 1: Implement Closet Dashboard with Migration**
+- [ ] **Step 1: Create SaveToClosetButton component**
+```tsx
+// components/SaveToClosetButton.tsx
+"use client";
+import { useState } from "react";
+import { supabase } from "../lib/supabase";
+import { AnalysisResult } from "../types";
+
+export default function SaveToClosetButton({ result }: { result: AnalysisResult }) {
+  const [saved, setSaved] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleSave = async () => {
+    setLoading(true);
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+       window.location.href = "/login";
+       return;
+    }
+    const { error } = await supabase.from('closet_items').insert({
+      user_id: session.user.id,
+      product_name: result.product_name,
+      brand: result.brand,
+      category: result.category,
+      verdict: result.verdict,
+      microplastics_risk: result.microplastics_risk,
+      data: result
+    });
+    setLoading(false);
+    if (!error) setSaved(true);
+  };
+
+  return (
+    <button 
+      onClick={handleSave}
+      disabled={saved || loading}
+      className={`px-8 py-3 rounded-full font-bold uppercase tracking-widest text-sm transition-all ${
+        saved ? "bg-secondary-design/20 text-secondary-design" : "bg-on-surface text-surface-lowest shadow-ambient active:scale-95"
+      }`}
+    >
+      {loading ? "Saving..." : saved ? "Added to Closet" : "Add to Closet"}
+    </button>
+  );
+}
+```
+
+- [ ] **Step 2: Create AnalyticsCards component**
+```tsx
+// components/AnalyticsCards.tsx
+import { WardrobeAnalytics } from "../types";
+
+export default function AnalyticsCards({ analytics }: { analytics: WardrobeAnalytics }) {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+      <div className="glass p-8 rounded-lg shadow-ambient">
+        <p className="text-xs font-black text-primary-design uppercase tracking-widest mb-2">Sustainability Index</p>
+        <p className="text-5xl font-bold text-on-surface">{analytics.sustainabilityScore}/10</p>
+      </div>
+      <div className="glass p-8 rounded-lg shadow-ambient">
+        <p className="text-xs font-black text-primary-design uppercase tracking-widest mb-2">Natural Fibers</p>
+        <p className="text-5xl font-bold text-secondary-design">{analytics.naturalPercentage}%</p>
+      </div>
+      <div className="glass p-8 rounded-lg shadow-ambient">
+        <p className="text-xs font-black text-primary-design uppercase tracking-widest mb-2">High Risk Items</p>
+        <p className="text-5xl font-bold text-error-design">{analytics.riskProfile.high}%</p>
+      </div>
+    </div>
+  );
+}
+```
+
+- [ ] **Step 3: Create ClosetDashboard component**
+```tsx
+// components/ClosetDashboard.tsx
+"use client";
+import { useState, useMemo } from "react";
+import { ClosetItem, Dictionary } from "../types";
+import { calculateAnalytics } from "../lib/analytics";
+import AnalyticsCards from "./AnalyticsCards";
+import ResultsCard from "./ResultsCard";
+
+export default function ClosetDashboard({ initialItems, dictionary }: { initialItems: ClosetItem[], dictionary: Dictionary }) {
+  const [items] = useState(initialItems);
+  const analytics = useMemo(() => calculateAnalytics(items), [items]);
+
+  return (
+    <div className="max-w-5xl mx-auto">
+      <h1 className="text-7xl font-bold text-on-surface mb-16 tracking-tighter">Your Closet</h1>
+      <AnalyticsCards analytics={analytics} />
+      <div className="space-y-12">
+        {items.map(item => (
+          <ResultsCard key={item.id} result={item.data} dictionary={dictionary.results} />
+        ))}
+      </div>
+    </div>
+  );
+}
+```
+
+- [ ] **Step 4: Update ResultsCard to include Save button**
+```tsx
+// components/ResultsCard.tsx
+// Import SaveToClosetButton and add it next to the verdict badge
+// ...
+<div className="flex flex-col items-end gap-4">
+  <div className={`px-8 py-3 rounded-full border-2 font-black uppercase tracking-widest text-sm ${getVerdictStyle(result.verdict)}`}>
+    {getVerdictLabel(result.verdict)}
+  </div>
+  <SaveToClosetButton result={result} />
+</div>
+// ...
+```
+
+- [ ] **Step 5: Implement migration in HomeContent**
+```tsx
+// components/HomeContent.tsx
+useEffect(() => {
+  const migrate = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    const localHistory = localStorage.getItem("wearwise_history");
+    if (session && localHistory) {
+      const items = JSON.parse(localHistory);
+      await supabase.from('closet_items').insert(
+        items.map((item: any) => ({
+          user_id: session.user.id,
+          product_name: item.product_name,
+          brand: item.brand,
+          category: item.category,
+          verdict: item.verdict,
+          microplastics_risk: item.microplastics_risk,
+          data: item
+        }))
+      );
+      localStorage.removeItem("wearwise_history");
+    }
+  };
+  migrate();
+}, []);
+```
+
+- [ ] **Step 6: Create Closet Page**
 ```tsx
 // app/[lang]/closet/page.tsx
 import { getDictionary } from "../../../get-dictionary";
@@ -258,36 +402,8 @@ export default async function ClosetPage({ params }: { params: { lang: Locale } 
 }
 ```
 
-- [ ] **Step 2: Add migration trigger to HomeContent**
-```tsx
-// components/HomeContent.tsx
-useEffect(() => {
-  const migrate = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    const localHistory = localStorage.getItem("wearwise_history");
-    if (session && localHistory) {
-      const items = JSON.parse(localHistory);
-      // Bulk insert to Supabase
-      await supabase.from('closet_items').insert(
-        items.map((item: any) => ({
-          user_id: session.user.id,
-          product_name: item.product_name,
-          brand: item.brand,
-          category: item.category,
-          verdict: item.verdict,
-          microplastics_risk: item.microplastics_risk,
-          data: item
-        }))
-      );
-      localStorage.removeItem("wearwise_history");
-    }
-  };
-  migrate();
-}, []);
-```
-
-- [ ] **Step 3: Commit**
+- [ ] **Step 7: Commit**
 ```bash
-git add app/[lang]/closet/page.tsx components/HomeContent.tsx
-git commit -m "feat: implement closet page and history migration"
+git add .
+git commit -m "feat: implement closet page, components and migration"
 ```

@@ -8,6 +8,7 @@ import Top10List from "./Top10List";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { AnalysisResult, Dictionary } from "../types";
 import { Locale } from "../i18n-config";
+import { supabase } from "../lib/supabase";
 
 interface HomeContentProps {
   dictionary: Dictionary;
@@ -19,6 +20,36 @@ export default function HomeContent({ dictionary, lang }: HomeContentProps) {
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [history, setHistory] = useState<AnalysisResult[]>([]);
+
+  useEffect(() => {
+    const migrate = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      const localHistory = localStorage.getItem("wearwise_history");
+      if (session && localHistory) {
+        try {
+          const items = JSON.parse(localHistory);
+          if (items.length > 0) {
+            await supabase.from('closet_items').insert(
+              items.map((item: AnalysisResult) => ({
+                user_id: session.user.id,
+                product_name: item.product_name,
+                brand: item.brand,
+                category: item.category,
+                verdict: item.verdict,
+                microplastics_risk: item.microplastics_risk,
+                data: item
+              }))
+            );
+          }
+          localStorage.removeItem("wearwise_history");
+          setHistory([]);
+        } catch (e) {
+          console.error("Failed to migrate history", e);
+        }
+      }
+    };
+    migrate();
+  }, []);
 
   useEffect(() => {
     const savedHistory = localStorage.getItem("wearwise_history");
