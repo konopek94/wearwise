@@ -29,6 +29,7 @@ export interface ClosetItem {
   verdict: "buy" | "consider" | "avoid";
   microplastics_risk: "low" | "medium" | "high";
   data: AnalysisResult;
+  status: "history" | "wardrobe";
   created_at: string;
 }
 
