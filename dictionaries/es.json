@@ -41,7 +41,8 @@
   "auth": {
     "login": "Entrar",
     "logout": "Salir",
-    "closet": "Mi Armario"
+    "closet": "Mi Armario",
+    "home": "Inicio"
   },
   "login": {
     "title": "Bienvenido de nuevo",

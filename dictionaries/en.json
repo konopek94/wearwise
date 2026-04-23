@@ -41,7 +41,8 @@
   "auth": {
     "login": "Login",
     "logout": "Logout",
-    "closet": "My Closet"
+    "closet": "My Closet",
+    "home": "Home"
   },
   "login": {
     "title": "Welcome Back",

@@ -41,7 +41,8 @@
   "auth": {
     "login": "Anmelden",
     "logout": "Abmelden",
-    "closet": "Mein Kleiderschrank"
+    "closet": "Mein Kleiderschrank",
+    "home": "Startseite"
   },
   "login": {
     "title": "Willkommen zurück",

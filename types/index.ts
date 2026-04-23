@@ -87,6 +87,7 @@ export interface Dictionary {
     login: string;
     logout: string;
     closet: string;
+    home: string;
   };
   login: {
     title: string;

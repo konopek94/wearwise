@@ -41,7 +41,8 @@
   "auth": {
     "login": "Zaloguj",
     "logout": "Wyloguj",
-    "closet": "Moja Szafa"
+    "closet": "Moja Szafa",
+    "home": "Start"
   },
   "login": {
     "title": "Witaj ponownie",
