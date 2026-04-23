@@ -5,12 +5,10 @@ import InputForm from "./InputForm";
 import ResultsCard from "./ResultsCard";
 import HistoryList from "./HistoryList";
 import Top10List from "./Top10List";
-import LanguageSwitcher from "./LanguageSwitcher";
-import AuthButton from "./AuthButton";
+import Navigation from "./Navigation";
 import { AnalysisResult, Dictionary } from "../types";
 import { Locale } from "../i18n-config";
 import { supabase } from "../lib/supabase";
-import Link from "next/link";
 
 interface HomeContentProps {
   dictionary: Dictionary;
@@ -113,18 +111,7 @@ export default function HomeContent({ dictionary, lang }: HomeContentProps) {
   return (
     <div className="min-h-screen bg-surface py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
-        <div className="fixed top-6 right-6 z-50 glass px-6 py-3 rounded-full shadow-ambient flex items-center gap-6">
-          <Link 
-            href={`/${lang}`}
-            className="px-4 py-1.5 text-[10px] font-black tracking-widest transition-all rounded-full text-primary-design hover:bg-surface-highest/10"
-          >
-            {dictionary.auth.home}
-          </Link>
-          <div className="w-px h-4 bg-surface-highest/30"></div>
-          <AuthButton dictionary={dictionary.auth} lang={lang} />
-          <div className="w-px h-4 bg-surface-highest/30"></div>
-          <LanguageSwitcher />
-        </div>
+        <Navigation dictionary={dictionary} lang={lang} />
         
         <div className="mb-24 text-left max-w-3xl">
           <h1 className="text-6xl sm:text-7xl font-bold text-on-surface mb-8 tracking-tighter">

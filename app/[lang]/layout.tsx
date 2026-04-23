@@ -16,6 +16,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "WearWise",
   description: "Analyze your clothing for sustainability and durability.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export async function generateStaticParams() {

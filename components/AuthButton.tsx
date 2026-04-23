@@ -7,7 +7,7 @@ import { supabase } from "../lib/supabase";
 import { Dictionary } from "../types";
 import { Locale } from "../i18n-config";
 
-export default function AuthButton({ dictionary, lang }: { dictionary: Dictionary["auth"], lang: Locale }) {
+export default function AuthButton({ dictionary, lang, activeStyle }: { dictionary: Dictionary["auth"], lang: Locale, activeStyle?: string }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -38,7 +38,9 @@ export default function AuthButton({ dictionary, lang }: { dictionary: Dictionar
       <div className="flex items-center gap-2">
         <Link 
           href={`/${lang}/closet`}
-          className="px-4 py-1.5 text-[10px] font-black tracking-widest transition-all rounded-full bg-secondary-design/10 text-secondary-design hover:bg-secondary-design/20"
+          className={`px-4 py-1.5 text-[10px] font-black tracking-widest transition-all rounded-full ${
+            activeStyle || "bg-secondary-design/10 text-secondary-design hover:bg-secondary-design/20"
+          }`}
         >
           {dictionary.closet}
         </Link>
