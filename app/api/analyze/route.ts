@@ -22,26 +22,35 @@ export async function POST(req: NextRequest) {
     const { data: { user } } = await supabase.auth.getUser();
 
     if (user) {
-      // Basic deduplication check
-      const { data: existing } = await supabase
-        .from('closet_items')
-        .select('id')
-        .eq('user_id', user.id)
-        .eq('product_name', result.product_name)
-        .eq('brand', result.brand)
-        .maybeSingle();
+      try {
+        // Basic deduplication check
+        const { data: existing, error: checkError } = await supabase
+          .from('closet_items')
+          .select('id')
+          .eq('user_id', user.id)
+          .eq('product_name', result.product_name)
+          .eq('brand', result.brand)
+          .maybeSingle();
 
-      if (!existing) {
-        await supabase.from('closet_items').insert({
-          user_id: user.id,
-          product_name: result.product_name,
-          brand: result.brand,
-          category: result.category,
-          verdict: result.verdict,
-          microplastics_risk: result.microplastics_risk,
-          status: 'history', // Auto-saved as history
-          data: result
-        });
+        if (checkError) {
+          console.error("Error checking for existing closet item:", checkError);
+        } else if (!existing) {
+          const { error: insertError } = await supabase.from('closet_items').insert({
+            user_id: user.id,
+            product_name: result.product_name,
+            brand: result.brand,
+            category: result.category,
+            verdict: result.verdict,
+            microplastics_risk: result.microplastics_risk,
+            status: 'history', // Auto-saved as history
+            data: result
+          });
+          if (insertError) {
+            console.error("Error auto-saving item to history:", insertError);
+          }
+        }
+      } catch (e) {
+        console.error("Unexpected error in auto-save logic:", e);
       }
     }
     
