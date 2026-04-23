@@ -12,6 +12,7 @@ describe('calculateAnalytics', () => {
       category: 'T-Shirt',
       verdict: 'buy',
       microplastics_risk: 'low',
+      status: 'wardrobe',
       created_at: new Date().toISOString(),
       data: {
         product_name: 'Cotton T-Shirt',
@@ -32,6 +33,7 @@ describe('calculateAnalytics', () => {
       category: 'Jacket',
       verdict: 'avoid',
       microplastics_risk: 'high',
+      status: 'wardrobe',
       created_at: new Date().toISOString(),
       data: {
         product_name: 'Poly Blend Jacket',
@@ -95,6 +97,7 @@ describe('calculateAnalytics', () => {
         category: 'T-Shirt',
         verdict: 'avoid',
         microplastics_risk: 'high',
+        status: 'wardrobe',
         created_at: new Date().toISOString(),
         data: {
           product_name: 'Polyester T-Shirt',
@@ -115,6 +118,7 @@ describe('calculateAnalytics', () => {
         category: 'Unknown',
         verdict: 'consider',
         microplastics_risk: 'medium',
+        status: 'wardrobe',
         created_at: new Date().toISOString(),
         data: {
           product_name: 'Unknown Item',

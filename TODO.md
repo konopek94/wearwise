@@ -1,6 +1,6 @@
-# Phase 1: Wardrobe Health Dashboard - Progress
+# Closet vs. History Split - Progress
 
-- [x] Task 1: Supabase Setup & Type Definitions
-- [x] Task 2: Magic Link Authentication
-- [x] Task 3: The Analytics Engine
-- [x] Task 4: Closet Page & Migration Logic
+- [x] Task 1: Database Migration & Type Update
+- [x] Task 2: API Refactor (Auto-Save & Status Update)
+- [ ] Task 3: Tabbed Dashboard UI
+- [ ] Task 4: Context-Aware ResultsCard
