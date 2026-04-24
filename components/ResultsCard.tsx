@@ -1,10 +1,15 @@
 import React from "react";
 import { AnalysisResult, Dictionary } from "../types";
 import SaveToClosetButton from "./SaveToClosetButton";
+import { Trash2 } from "lucide-react";
 
 interface ResultsCardProps {
   result: AnalysisResult;
   dictionary: Dictionary["results"];
+  itemId?: string;
+  status?: "history" | "wardrobe";
+  onStatusChange?: (id: string, status: "history" | "wardrobe") => void;
+  onDelete?: (id: string) => void;
 }
 
 const ProgressBar = ({ value, label }: { value: number; label: string }) => {
@@ -28,7 +33,14 @@ const ProgressBar = ({ value, label }: { value: number; label: string }) => {
   );
 };
 
-export default function ResultsCard({ result, dictionary }: ResultsCardProps) {
+export default function ResultsCard({ 
+  result, 
+  dictionary,
+  itemId,
+  status,
+  onStatusChange,
+  onDelete
+}: ResultsCardProps) {
   const getVerdictStyle = (verdict: string) => {
     switch (verdict.toLowerCase()) {
       case "buy": return "bg-secondary-design/10 text-secondary-design border-secondary-design/20";
@@ -68,7 +80,35 @@ export default function ResultsCard({ result, dictionary }: ResultsCardProps) {
           <div className={`px-8 py-3 rounded-full border-2 font-black uppercase tracking-widest text-sm ${getVerdictStyle(result.verdict)}`}>
             {getVerdictLabel(result.verdict)}
           </div>
-          <SaveToClosetButton result={result} />
+          
+          {itemId ? (
+            <div className="flex gap-3 items-center">
+              {status === "history" ? (
+                <button
+                  onClick={() => onStatusChange?.(itemId, "wardrobe")}
+                  className="px-6 py-2 bg-on-surface text-surface-lowest rounded-full text-xs font-bold uppercase hover:opacity-90 transition-opacity cursor-pointer"
+                >
+                  Add to Wardrobe
+                </button>
+              ) : (
+                <button
+                  onClick={() => onStatusChange?.(itemId, "history")}
+                  className="px-6 py-2 bg-surface-highest text-primary-design rounded-full text-xs font-bold uppercase hover:bg-surface-highest/80 transition-all cursor-pointer"
+                >
+                  Remove from Wardrobe
+                </button>
+              )}
+              <button
+                onClick={() => onDelete?.(itemId)}
+                className="p-2 text-error-design opacity-50 hover:opacity-100 transition-opacity cursor-pointer"
+                aria-label="Delete item"
+              >
+                <Trash2 size={20} />
+              </button>
+            </div>
+          ) : (
+            <SaveToClosetButton result={result} />
+          )}
         </div>
       </div>
 
