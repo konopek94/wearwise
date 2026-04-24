@@ -104,9 +104,17 @@ export interface Dictionary {
     subtitle: string;
     emailLabel: string;
     emailPlaceholder: string;
+    passwordLabel: string;
+    passwordPlaceholder: string;
+    magicLink: string;
+    password: string;
     sendLink: string;
+    signIn: string;
+    signUp: string;
     sending: string;
     checkEmail: string;
     error: string;
+    alreadyHaveAccount: string;
+    noAccount: string;
   };
   }

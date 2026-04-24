@@ -58,9 +58,17 @@
     "subtitle": "Melden Sie sich an, um Ihre Garderobe zu verwalten und Ihre Auswirkungen zu verfolgen.",
     "emailLabel": "E-Mail-Adresse",
     "emailPlaceholder": "z.B. kurator@wearwise.app",
+    "passwordLabel": "Passwort",
+    "passwordPlaceholder": "Passwort eingeben",
+    "magicLink": "Magic Link",
+    "password": "Passwort",
     "sendLink": "Magic Link senden",
+    "signIn": "Anmelden",
+    "signUp": "Registrieren",
     "sending": "Wird gesendet...",
     "checkEmail": "Überprüfen Sie Ihre E-Mails für den Magic Link!",
-    "error": "Magic Link konnte nicht gesendet werden. Bitte versuchen Sie es erneut."
+    "error": "Magic Link konnte nicht gesendet werden. Bitte versuchen Sie es erneut.",
+    "alreadyHaveAccount": "Haben Sie bereits ein Konto? Anmelden",
+    "noAccount": "Haben Sie kein Konto? Registrieren"
   }
 }

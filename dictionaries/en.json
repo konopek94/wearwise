@@ -58,9 +58,17 @@
     "subtitle": "Sign in to manage your wardrobe and track your impact.",
     "emailLabel": "Email address",
     "emailPlaceholder": "e.g., curator@wearwise.app",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "magicLink": "Magic Link",
+    "password": "Password",
     "sendLink": "Send Magic Link",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
     "sending": "Sending...",
     "checkEmail": "Check your email for the magic link!",
-    "error": "Failed to send magic link. Please try again."
+    "error": "Failed to send magic link. Please try again.",
+    "alreadyHaveAccount": "Already have an account? Sign in",
+    "noAccount": "Don't have an account? Sign up"
   }
 }

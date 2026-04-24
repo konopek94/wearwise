@@ -58,9 +58,17 @@
     "subtitle": "Zaloguj się, aby zarządzać swoją garderobą i śledzić swój wpływ.",
     "emailLabel": "Adres e-mail",
     "emailPlaceholder": "np. kurator@wearwise.app",
+    "passwordLabel": "Hasło",
+    "passwordPlaceholder": "Wprowadź hasło",
+    "magicLink": "Magic Link",
+    "password": "Hasło",
     "sendLink": "Wyślij Magic Link",
+    "signIn": "Zaloguj się",
+    "signUp": "Zarejestruj się",
     "sending": "Wysyłanie...",
     "checkEmail": "Sprawdź skrzynkę odbiorczą, aby odebrać link!",
-    "error": "Nie udało się wysłać linku. Spróbuj ponownie."
+    "error": "Nie udało się wysłać linku. Spróbuj ponownie.",
+    "alreadyHaveAccount": "Masz już konto? Zaloguj się",
+    "noAccount": "Nie masz konta? Zarejestruj się"
   }
 }

@@ -58,9 +58,17 @@
     "subtitle": "Inicia sesión para gestionar tu armario y rastrear tu impacto.",
     "emailLabel": "Correo electrónico",
     "emailPlaceholder": "p. ej., curador@wearwise.app",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "Introduce tu contraseña",
+    "magicLink": "Magic Link",
+    "password": "Contraseña",
     "sendLink": "Enviar Magic Link",
+    "signIn": "Iniciar sesión",
+    "signUp": "Registrarse",
     "sending": "Enviando...",
     "checkEmail": "¡Revisa tu correo para el enlace mágico!",
-    "error": "Error al enviar el enlace mágico. Inténtalo de nuevo."
+    "error": "Error al enviar el enlace mágico. Inténtalo de nuevo.",
+    "alreadyHaveAccount": "¿Ya tienes cuenta? Inicia sesión",
+    "noAccount": "¿No tienes cuenta? Regístrate"
   }
 }
