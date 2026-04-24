@@ -25,7 +25,16 @@
       "buy": "Kaufen",
       "consider": "Überlegen",
       "avoid": "Vermeiden"
-    }
+    },
+    "addToWardrobe": "Zum Kleiderschrank hinzufügen",
+    "removeFromWardrobe": "Aus dem Kleiderschrank entfernen",
+    "addToCloset": "Zum Kleiderschrank hinzufügen",
+    "addedToCloset": "Zum Kleiderschrank hinzugefügt",
+    "saving": "Speichern..."
+  },
+  "closet": {
+    "myWardrobe": "Mein Kleiderschrank",
+    "scanHistory": "Scan-Verlauf"
   },
   "history": {
     "title": "Letzte Suchen",

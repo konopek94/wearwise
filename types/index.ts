@@ -72,6 +72,15 @@ export interface Dictionary {
       consider: string;
       avoid: string;
     };
+    addToWardrobe: string;
+    removeFromWardrobe: string;
+    addToCloset: string;
+    addedToCloset: string;
+    saving: string;
+  };
+  closet: {
+    myWardrobe: string;
+    scanHistory: string;
   };
   history: {
     title: string;

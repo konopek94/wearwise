@@ -25,7 +25,16 @@
       "buy": "Buy",
       "consider": "Consider",
       "avoid": "Avoid"
-    }
+    },
+    "addToWardrobe": "Add to Wardrobe",
+    "removeFromWardrobe": "Remove from Wardrobe",
+    "addToCloset": "Add to Closet",
+    "addedToCloset": "Added to Closet",
+    "saving": "Saving..."
+  },
+  "closet": {
+    "myWardrobe": "My Wardrobe",
+    "scanHistory": "Scan History"
   },
   "history": {
     "title": "Recent Searches",

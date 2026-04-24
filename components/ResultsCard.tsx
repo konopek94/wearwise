@@ -88,14 +88,14 @@ export default function ResultsCard({
                   onClick={() => onStatusChange?.(itemId, "wardrobe")}
                   className="px-6 py-2 bg-on-surface text-surface-lowest rounded-full text-xs font-bold uppercase hover:opacity-90 transition-opacity cursor-pointer"
                 >
-                  Add to Wardrobe
+                  {dictionary.addToWardrobe}
                 </button>
               ) : (
                 <button
                   onClick={() => onStatusChange?.(itemId, "history")}
                   className="px-6 py-2 bg-surface-highest text-primary-design rounded-full text-xs font-bold uppercase hover:bg-surface-highest/80 transition-all cursor-pointer"
                 >
-                  Remove from Wardrobe
+                  {dictionary.removeFromWardrobe}
                 </button>
               )}
               <button
@@ -107,7 +107,7 @@ export default function ResultsCard({
               </button>
             </div>
           ) : (
-            <SaveToClosetButton result={result} />
+            <SaveToClosetButton result={result} dictionary={dictionary} />
           )}
         </div>
       </div>

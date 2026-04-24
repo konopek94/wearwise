@@ -25,7 +25,16 @@
       "buy": "Kupuj",
       "consider": "Rozważ",
       "avoid": "Unikaj"
-    }
+    },
+    "addToWardrobe": "Dodaj do szafy",
+    "removeFromWardrobe": "Usuń z szafy",
+    "addToCloset": "Dodaj do szafy",
+    "addedToCloset": "Dodano do szafy",
+    "saving": "Zapisywanie..."
+  },
+  "closet": {
+    "myWardrobe": "Moja Szafa",
+    "scanHistory": "Historia skanów"
   },
   "history": {
     "title": "Ostatnie wyszukiwania",

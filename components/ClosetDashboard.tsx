@@ -64,13 +64,13 @@ export default function ClosetDashboard({ initialItems, dictionary, lang }: { in
           onClick={() => setActiveTab("wardrobe")}
           className={`pb-4 text-xl font-bold transition-all ${activeTab === "wardrobe" ? "text-on-surface border-b-2 border-secondary-design" : "text-primary-design opacity-50"}`}
         >
-          My Wardrobe ({wardrobeItems.length})
+          {dictionary.closet.myWardrobe} ({wardrobeItems.length})
         </button>
         <button
           onClick={() => setActiveTab("history")}
           className={`pb-4 text-xl font-bold transition-all ${activeTab === "history" ? "text-on-surface border-b-2 border-secondary-design" : "text-primary-design opacity-50"}`}
         >
-          Scan History ({historyItems.length})
+          {dictionary.closet.scanHistory} ({historyItems.length})
         </button>
       </div>
 
