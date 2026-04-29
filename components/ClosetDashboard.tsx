@@ -6,6 +6,7 @@ import AnalyticsCards from "./AnalyticsCards";
 import ResultsCard from "./ResultsCard";
 import Navigation from "./Navigation";
 import { Locale } from "../i18n-config";
+import Link from "next/link";
 
 export default function ClosetDashboard({ initialItems, dictionary, lang }: { initialItems: ClosetItem[], dictionary: Dictionary, lang: Locale }) {
   const [items, setItems] = useState(initialItems);
@@ -74,22 +75,42 @@ export default function ClosetDashboard({ initialItems, dictionary, lang }: { in
         </button>
       </div>
 
-      {activeTab === "wardrobe" && <AnalyticsCards analytics={analytics} />}
+      {activeTab === "wardrobe" && wardrobeItems.length > 0 && <AnalyticsCards analytics={analytics} />}
 
-      <div className="space-y-12">
-        {displayedItems.map(item => (
-          <ResultsCard
-            key={item.id}
-            result={item.data}
-            dictionary={dictionary.results}
-            lang={lang}
-            itemId={item.id}
-            status={item.status}
-            onStatusChange={handleStatusChange}
-            onDelete={handleDelete}
-          />
-        ))}
-      </div>
+      {displayedItems.length === 0 ? (
+        <div className="py-24 flex flex-col items-start gap-6">
+          <p className="text-8xl font-black text-surface-highest select-none">
+            {activeTab === "wardrobe" ? "0" : "—"}
+          </p>
+          <h2 className="text-3xl font-bold text-on-surface tracking-tight">
+            {activeTab === "wardrobe" ? dictionary.closet.emptyWardrobe : dictionary.closet.emptyHistory}
+          </h2>
+          <p className="text-lg text-primary-design opacity-60 max-w-md leading-relaxed">
+            {activeTab === "wardrobe" ? dictionary.closet.emptyWardrobeDesc : dictionary.closet.emptyHistoryDesc}
+          </p>
+          <Link
+            href={`/${lang}`}
+            className="mt-2 px-8 py-3 bg-on-surface text-surface-lowest rounded-full font-bold uppercase tracking-widest text-sm hover:opacity-80 transition-opacity"
+          >
+            {dictionary.closet.startScanning}
+          </Link>
+        </div>
+      ) : (
+        <div className="space-y-12">
+          {displayedItems.map(item => (
+            <ResultsCard
+              key={item.id}
+              result={item.data}
+              dictionary={dictionary.results}
+              lang={lang}
+              itemId={item.id}
+              status={item.status}
+              onStatusChange={handleStatusChange}
+              onDelete={handleDelete}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

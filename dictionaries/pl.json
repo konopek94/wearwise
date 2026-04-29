@@ -39,7 +39,12 @@
   },
   "closet": {
     "myWardrobe": "Moja Szafa",
-    "scanHistory": "Historia skanów"
+    "scanHistory": "Historia skanów",
+    "emptyWardrobe": "Twoja szafa jest pusta",
+    "emptyWardrobeDesc": "Zeskanuj produkt i kliknij \"Dodaj do szafy\", aby zacząć budować kolekcję.",
+    "emptyHistory": "Brak skanów",
+    "emptyHistoryDesc": "Każdy produkt, który przeanalizujesz będąc zalogowanym, pojawi się tutaj automatycznie.",
+    "startScanning": "Zacznij skanować"
   },
   "history": {
     "title": "Ostatnie wyszukiwania",

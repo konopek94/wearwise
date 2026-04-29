@@ -39,7 +39,12 @@
   },
   "closet": {
     "myWardrobe": "Mein Kleiderschrank",
-    "scanHistory": "Scan-Verlauf"
+    "scanHistory": "Scan-Verlauf",
+    "emptyWardrobe": "Ihr Kleiderschrank ist leer",
+    "emptyWardrobeDesc": "Scannen Sie ein Produkt und klicken Sie auf \"Zum Kleiderschrank hinzufügen\", um Ihre Kollektion zu starten.",
+    "emptyHistory": "Noch keine Scans",
+    "emptyHistoryDesc": "Jedes Produkt, das Sie eingeloggt analysieren, erscheint hier automatisch.",
+    "startScanning": "Jetzt scannen"
   },
   "history": {
     "title": "Letzte Suchen",

@@ -39,7 +39,12 @@
   },
   "closet": {
     "myWardrobe": "Mi Armario",
-    "scanHistory": "Historial de escaneos"
+    "scanHistory": "Historial de escaneos",
+    "emptyWardrobe": "Tu armario está vacío",
+    "emptyWardrobeDesc": "Escanea un producto y pulsa \"Añadir al armario\" para empezar tu colección.",
+    "emptyHistory": "Sin escaneos aún",
+    "emptyHistoryDesc": "Cada producto que analices con sesión iniciada aparecerá aquí automáticamente.",
+    "startScanning": "Empezar a escanear"
   },
   "history": {
     "title": "Búsquedas recientes",

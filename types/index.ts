@@ -86,6 +86,11 @@ export interface Dictionary {
   closet: {
     myWardrobe: string;
     scanHistory: string;
+    emptyWardrobe: string;
+    emptyWardrobeDesc: string;
+    emptyHistory: string;
+    emptyHistoryDesc: string;
+    startScanning: string;
   };
   history: {
     title: string;

@@ -39,7 +39,12 @@
   },
   "closet": {
     "myWardrobe": "My Wardrobe",
-    "scanHistory": "Scan History"
+    "scanHistory": "Scan History",
+    "emptyWardrobe": "Your wardrobe is empty",
+    "emptyWardrobeDesc": "Scan an item and hit \"Add to Closet\" to start building your collection.",
+    "emptyHistory": "No scans yet",
+    "emptyHistoryDesc": "Every product you analyze while logged in appears here automatically.",
+    "startScanning": "Start Scanning"
   },
   "history": {
     "title": "Recent Searches",
