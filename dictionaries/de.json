@@ -40,6 +40,12 @@
   "closet": {
     "myWardrobe": "Mein Kleiderschrank",
     "scanHistory": "Scan-Verlauf",
+    "clearWardrobe": "Kleiderschrank leeren",
+    "clearHistory": "Verlauf löschen",
+    "clearConfirmTitle": "Alle Einträge löschen?",
+    "clearConfirmDesc": "Diese Aktion kann nicht rückgängig gemacht werden.",
+    "clearConfirm": "Ja, alles löschen",
+    "cancel": "Abbrechen",
     "emptyWardrobe": "Ihr Kleiderschrank ist leer",
     "emptyWardrobeDesc": "Scannen Sie ein Produkt und klicken Sie auf \"Zum Kleiderschrank hinzufügen\", um Ihre Kollektion zu starten.",
     "emptyHistory": "Noch keine Scans",

@@ -40,6 +40,12 @@
   "closet": {
     "myWardrobe": "Mi Armario",
     "scanHistory": "Historial de escaneos",
+    "clearWardrobe": "Vaciar armario",
+    "clearHistory": "Borrar historial",
+    "clearConfirmTitle": "¿Borrar todos los elementos?",
+    "clearConfirmDesc": "Esta acción no se puede deshacer.",
+    "clearConfirm": "Sí, borrar todo",
+    "cancel": "Cancelar",
     "emptyWardrobe": "Tu armario está vacío",
     "emptyWardrobeDesc": "Escanea un producto y pulsa \"Añadir al armario\" para empezar tu colección.",
     "emptyHistory": "Sin escaneos aún",

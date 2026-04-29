@@ -40,6 +40,12 @@
   "closet": {
     "myWardrobe": "Moja Szafa",
     "scanHistory": "Historia skanów",
+    "clearWardrobe": "Wyczyść szafę",
+    "clearHistory": "Wyczyść historię",
+    "clearConfirmTitle": "Wyczyścić wszystko?",
+    "clearConfirmDesc": "Tej operacji nie można cofnąć.",
+    "clearConfirm": "Tak, wyczyść",
+    "cancel": "Anuluj",
     "emptyWardrobe": "Twoja szafa jest pusta",
     "emptyWardrobeDesc": "Zeskanuj produkt i kliknij \"Dodaj do szafy\", aby zacząć budować kolekcję.",
     "emptyHistory": "Brak skanów",

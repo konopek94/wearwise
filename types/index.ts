@@ -86,6 +86,12 @@ export interface Dictionary {
   closet: {
     myWardrobe: string;
     scanHistory: string;
+    clearWardrobe: string;
+    clearHistory: string;
+    clearConfirmTitle: string;
+    clearConfirmDesc: string;
+    clearConfirm: string;
+    cancel: string;
     emptyWardrobe: string;
     emptyWardrobeDesc: string;
     emptyHistory: string;

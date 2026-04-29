@@ -7,10 +7,12 @@ import ResultsCard from "./ResultsCard";
 import Navigation from "./Navigation";
 import { Locale } from "../i18n-config";
 import Link from "next/link";
+import ConfirmDialog from "./ConfirmDialog";
 
 export default function ClosetDashboard({ initialItems, dictionary, lang }: { initialItems: ClosetItem[], dictionary: Dictionary, lang: Locale }) {
   const [items, setItems] = useState(initialItems);
   const [activeTab, setActiveTab] = useState<"wardrobe" | "history">("wardrobe");
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
 
   const wardrobeItems = useMemo(() => items.filter(i => i.status === "wardrobe"), [items]);
   const historyItems = useMemo(() => items.filter(i => i.status === "history"), [items]);
@@ -33,6 +35,20 @@ export default function ClosetDashboard({ initialItems, dictionary, lang }: { in
       console.error(error);
       // Revert on failure
       setItems(prev => prev.map(item => item.id === id ? { ...item, status: items.find(i => i.id === id)?.status || newStatus } : item));
+    }
+  };
+
+  const handleClearAll = async () => {
+    const prevItems = items;
+    setItems(prev => prev.filter(i => i.status !== activeTab));
+    setShowClearConfirm(false);
+
+    try {
+      const response = await fetch(`/api/closet?status=${activeTab}`, { method: "DELETE" });
+      if (!response.ok) throw new Error("Failed to clear");
+    } catch (error) {
+      console.error(error);
+      setItems(prevItems);
     }
   };
 
@@ -60,20 +76,41 @@ export default function ClosetDashboard({ initialItems, dictionary, lang }: { in
         {dictionary.auth.closet}
       </h1>
 
-      <div className="flex gap-8 mb-16 border-b border-surface-highest/10">
-        <button
-          onClick={() => setActiveTab("wardrobe")}
-          className={`pb-4 text-xl font-bold transition-all ${activeTab === "wardrobe" ? "text-on-surface border-b-2 border-secondary-design" : "text-primary-design opacity-50"}`}
-        >
-          {dictionary.closet.myWardrobe} ({wardrobeItems.length})
-        </button>
-        <button
-          onClick={() => setActiveTab("history")}
-          className={`pb-4 text-xl font-bold transition-all ${activeTab === "history" ? "text-on-surface border-b-2 border-secondary-design" : "text-primary-design opacity-50"}`}
-        >
-          {dictionary.closet.scanHistory} ({historyItems.length})
-        </button>
+      <div className="flex items-end justify-between mb-16 border-b border-surface-highest/10">
+        <div className="flex gap-8">
+          <button
+            onClick={() => setActiveTab("wardrobe")}
+            className={`pb-4 text-xl font-bold transition-all ${activeTab === "wardrobe" ? "text-on-surface border-b-2 border-secondary-design" : "text-primary-design opacity-50"}`}
+          >
+            {dictionary.closet.myWardrobe} ({wardrobeItems.length})
+          </button>
+          <button
+            onClick={() => setActiveTab("history")}
+            className={`pb-4 text-xl font-bold transition-all ${activeTab === "history" ? "text-on-surface border-b-2 border-secondary-design" : "text-primary-design opacity-50"}`}
+          >
+            {dictionary.closet.scanHistory} ({historyItems.length})
+          </button>
+        </div>
+        {displayedItems.length > 0 && (
+          <button
+            onClick={() => setShowClearConfirm(true)}
+            className="pb-4 text-sm font-medium text-error-design opacity-50 hover:opacity-100 transition-opacity"
+          >
+            {activeTab === "wardrobe" ? dictionary.closet.clearWardrobe : dictionary.closet.clearHistory}
+          </button>
+        )}
       </div>
+
+      {showClearConfirm && (
+        <ConfirmDialog
+          title={dictionary.closet.clearConfirmTitle}
+          description={dictionary.closet.clearConfirmDesc}
+          confirmLabel={dictionary.closet.clearConfirm}
+          cancelLabel={dictionary.closet.cancel}
+          onConfirm={handleClearAll}
+          onCancel={() => setShowClearConfirm(false)}
+        />
+      )}
 
       {activeTab === "wardrobe" && wardrobeItems.length > 0 && <AnalyticsCards analytics={analytics} />}
 

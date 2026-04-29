@@ -40,6 +40,12 @@
   "closet": {
     "myWardrobe": "My Wardrobe",
     "scanHistory": "Scan History",
+    "clearWardrobe": "Clear Wardrobe",
+    "clearHistory": "Clear History",
+    "clearConfirmTitle": "Clear all items?",
+    "clearConfirmDesc": "This action cannot be undone.",
+    "clearConfirm": "Yes, clear all",
+    "cancel": "Cancel",
     "emptyWardrobe": "Your wardrobe is empty",
     "emptyWardrobeDesc": "Scan an item and hit \"Add to Closet\" to start building your collection.",
     "emptyHistory": "No scans yet",
