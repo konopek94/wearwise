@@ -72,6 +72,11 @@ export interface Dictionary {
       consider: string;
       avoid: string;
     };
+    microplasticsRiskLevels: {
+      low: string;
+      medium: string;
+      high: string;
+    };
     addToWardrobe: string;
     removeFromWardrobe: string;
     addToCloset: string;

@@ -1,11 +1,13 @@
 import React from "react";
 import { AnalysisResult, Dictionary } from "../types";
 import SaveToClosetButton from "./SaveToClosetButton";
+import { getMaterialName } from "../lib/materialNames";
 import { Trash2 } from "lucide-react";
 
 interface ResultsCardProps {
   result: AnalysisResult;
   dictionary: Dictionary["results"];
+  lang?: string;
   itemId?: string;
   status?: "history" | "wardrobe";
   onStatusChange?: (id: string, status: "history" | "wardrobe") => void;
@@ -33,9 +35,10 @@ const ProgressBar = ({ value, label }: { value: number; label: string }) => {
   );
 };
 
-export default function ResultsCard({ 
-  result, 
+export default function ResultsCard({
+  result,
   dictionary,
+  lang = "en",
   itemId,
   status,
   onStatusChange,
@@ -124,7 +127,7 @@ export default function ResultsCard({
           <div className={`p-6 rounded-lg flex items-center justify-between ${getMicroplasticsStyle(result.microplastics_risk)}`}>
             <span className="text-sm font-black uppercase tracking-widest opacity-60">{dictionary.microplasticsRisk}</span>
             <span className="font-bold capitalize text-lg">
-              {result.microplastics_risk}
+              {dictionary.microplasticsRiskLevels[result.microplastics_risk]}
             </span>
           </div>
         </div>
@@ -136,7 +139,7 @@ export default function ResultsCard({
               <li key={index} className="flex justify-between items-center group">
                 <div className="flex items-center gap-4">
                   <span className="w-3 h-3 rounded-full bg-secondary-design/20 group-hover:bg-secondary-design transition-colors"></span>
-                  <span className="text-lg font-medium text-on-surface">{mat.name}</span>
+                  <span className="text-lg font-medium text-on-surface">{getMaterialName(mat.name, lang)}</span>
                 </div>
                 <div className="flex-1 border-b border-surface-low border-dotted mx-4 mb-1.5"></div>
                 <span className="font-black text-on-surface tabular-nums">{mat.percentage}%</span>

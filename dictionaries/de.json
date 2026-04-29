@@ -26,6 +26,11 @@
       "consider": "Überlegen",
       "avoid": "Vermeiden"
     },
+    "microplasticsRiskLevels": {
+      "low": "Niedrig",
+      "medium": "Mittel",
+      "high": "Hoch"
+    },
     "addToWardrobe": "Zum Kleiderschrank hinzufügen",
     "removeFromWardrobe": "Aus dem Kleiderschrank entfernen",
     "addToCloset": "Zum Kleiderschrank hinzufügen",

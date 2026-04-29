@@ -26,6 +26,11 @@
       "consider": "Consider",
       "avoid": "Avoid"
     },
+    "microplasticsRiskLevels": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
     "addToWardrobe": "Add to Wardrobe",
     "removeFromWardrobe": "Remove from Wardrobe",
     "addToCloset": "Add to Closet",

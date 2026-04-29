@@ -141,7 +141,7 @@ export default function HomeContent({ dictionary, lang }: HomeContentProps) {
 
           {result && (
             <section className="animate-in fade-in slide-in-from-bottom-8 duration-700">
-              <ResultsCard result={result} dictionary={dictionary.results} />
+              <ResultsCard result={result} dictionary={dictionary.results} lang={lang} />
             </section>
           )}
 

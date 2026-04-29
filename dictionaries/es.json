@@ -26,6 +26,11 @@
       "consider": "Considerar",
       "avoid": "Evitar"
     },
+    "microplasticsRiskLevels": {
+      "low": "Bajo",
+      "medium": "Medio",
+      "high": "Alto"
+    },
     "addToWardrobe": "Añadir al armario",
     "removeFromWardrobe": "Eliminar del armario",
     "addToCloset": "Añadir al armario",

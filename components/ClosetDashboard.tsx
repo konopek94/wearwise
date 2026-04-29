@@ -78,10 +78,11 @@ export default function ClosetDashboard({ initialItems, dictionary, lang }: { in
 
       <div className="space-y-12">
         {displayedItems.map(item => (
-          <ResultsCard 
-            key={item.id} 
-            result={item.data} 
+          <ResultsCard
+            key={item.id}
+            result={item.data}
             dictionary={dictionary.results}
+            lang={lang}
             itemId={item.id}
             status={item.status}
             onStatusChange={handleStatusChange}
