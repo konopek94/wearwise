@@ -79,6 +79,19 @@
     "checkEmail": "Sprawdź skrzynkę odbiorczą, aby odebrać link!",
     "error": "Nie udało się wysłać linku. Spróbuj ponownie.",
     "alreadyHaveAccount": "Masz już konto? Zaloguj się",
-    "noAccount": "Nie masz konta? Zarejestruj się"
+    "noAccount": "Nie masz konta? Zarejestruj się",
+    "forgotPassword": "Nie pamiętasz hasła?",
+    "sendResetLink": "Wyślij link resetujący",
+    "resetLinkSent": "Sprawdź skrzynkę — wysłaliśmy link do resetowania hasła.",
+    "backToSignIn": "Wróć do logowania",
+    "resetPasswordTitle": "Nowe hasło",
+    "resetPasswordSubtitle": "Wprowadź nowe hasło do swojego konta.",
+    "newPassword": "Nowe hasło",
+    "newPasswordPlaceholder": "Wprowadź nowe hasło",
+    "confirmPassword": "Potwierdź hasło",
+    "confirmPasswordPlaceholder": "Potwierdź nowe hasło",
+    "updatePassword": "Zaktualizuj hasło",
+    "passwordUpdated": "Hasło zaktualizowane! Przekierowuję...",
+    "passwordMismatch": "Hasła nie są identyczne"
   }
 }

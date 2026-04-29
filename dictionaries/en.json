@@ -79,6 +79,19 @@
     "checkEmail": "Check your email for the magic link!",
     "error": "Failed to send magic link. Please try again.",
     "alreadyHaveAccount": "Already have an account? Sign in",
-    "noAccount": "Don't have an account? Sign up"
+    "noAccount": "Don't have an account? Sign up",
+    "forgotPassword": "Forgot password?",
+    "sendResetLink": "Send Reset Link",
+    "resetLinkSent": "Check your email for a password reset link.",
+    "backToSignIn": "Back to sign in",
+    "resetPasswordTitle": "Set New Password",
+    "resetPasswordSubtitle": "Enter a new password for your account.",
+    "newPassword": "New Password",
+    "newPasswordPlaceholder": "Enter new password",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Confirm new password",
+    "updatePassword": "Update Password",
+    "passwordUpdated": "Password updated! Redirecting...",
+    "passwordMismatch": "Passwords do not match"
   }
 }

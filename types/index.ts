@@ -126,5 +126,18 @@ export interface Dictionary {
     error: string;
     alreadyHaveAccount: string;
     noAccount: string;
+    forgotPassword: string;
+    sendResetLink: string;
+    resetLinkSent: string;
+    backToSignIn: string;
+    resetPasswordTitle: string;
+    resetPasswordSubtitle: string;
+    newPassword: string;
+    newPasswordPlaceholder: string;
+    confirmPassword: string;
+    confirmPasswordPlaceholder: string;
+    updatePassword: string;
+    passwordUpdated: string;
+    passwordMismatch: string;
   };
   }

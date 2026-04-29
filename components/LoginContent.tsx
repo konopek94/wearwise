@@ -5,7 +5,7 @@ import { supabase } from '../lib/supabase';
 import { Dictionary } from '../types';
 import type { Locale } from '../i18n-config';
 
-type AuthMode = 'magic' | 'password';
+type AuthMode = 'magic' | 'password' | 'forgot';
 
 export default function LoginContent({
   dictionary,
@@ -21,6 +21,24 @@ export default function LoginContent({
   const [error, setError] = useState('');
   const [authMode, setAuthMode] = useState<AuthMode>('magic');
   const [isSignUp, setIsSignUp] = useState(false);
+
+  const handleForgotPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage('');
+    setError('');
+
+    const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/api/auth/callback?lang=${lang}&next=/reset-password`,
+    });
+
+    if (resetError) {
+      setError(resetError.message);
+    } else {
+      setMessage(dictionary.login.resetLinkSent);
+    }
+    setLoading(false);
+  };
 
   const handleMagicLinkLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -82,11 +100,15 @@ export default function LoginContent({
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-    if (authMode === 'magic') {
-      handleMagicLinkLogin(e);
-    } else {
-      handlePasswordAuth(e);
-    }
+    if (authMode === 'magic') return handleMagicLinkLogin(e);
+    if (authMode === 'forgot') return handleForgotPassword(e);
+    handlePasswordAuth(e);
+  };
+
+  const switchAuthMode = (mode: AuthMode) => {
+    setAuthMode(mode);
+    setMessage('');
+    setError('');
   };
 
   return (
@@ -99,31 +121,33 @@ export default function LoginContent({
           {dictionary.login.subtitle}
         </p>
 
-        {/* Auth Mode Toggle */}
-        <div className="flex gap-2 mb-8 p-1 bg-surface-low rounded-lg">
-          <button
-            type="button"
-            onClick={() => setAuthMode('magic')}
-            className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
-              authMode === 'magic'
-                ? 'bg-surface-lowest text-on-surface shadow-sm'
-                : 'text-primary-design hover:text-on-surface'
-            }`}
-          >
-            {dictionary.login.magicLink}
-          </button>
-          <button
-            type="button"
-            onClick={() => setAuthMode('password')}
-            className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
-              authMode === 'password'
-                ? 'bg-surface-lowest text-on-surface shadow-sm'
-                : 'text-primary-design hover:text-on-surface'
-            }`}
-          >
-            {dictionary.login.password}
-          </button>
-        </div>
+        {/* Auth Mode Toggle — hidden in forgot password mode */}
+        {authMode !== 'forgot' && (
+          <div className="flex gap-2 mb-8 p-1 bg-surface-low rounded-lg">
+            <button
+              type="button"
+              onClick={() => switchAuthMode('magic')}
+              className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
+                authMode === 'magic'
+                  ? 'bg-surface-lowest text-on-surface shadow-sm'
+                  : 'text-primary-design hover:text-on-surface'
+              }`}
+            >
+              {dictionary.login.magicLink}
+            </button>
+            <button
+              type="button"
+              onClick={() => switchAuthMode('password')}
+              className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
+                authMode === 'password'
+                  ? 'bg-surface-lowest text-on-surface shadow-sm'
+                  : 'text-primary-design hover:text-on-surface'
+              }`}
+            >
+              {dictionary.login.password}
+            </button>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="space-y-3">
@@ -142,9 +166,20 @@ export default function LoginContent({
 
           {authMode === 'password' && (
             <div className="space-y-3">
-              <label className="block text-xs font-black uppercase tracking-[0.2em] text-primary-design">
-                {dictionary.login.passwordLabel}
-              </label>
+              <div className="flex justify-between items-center">
+                <label className="block text-xs font-black uppercase tracking-[0.2em] text-primary-design">
+                  {dictionary.login.passwordLabel}
+                </label>
+                {!isSignUp && (
+                  <button
+                    type="button"
+                    onClick={() => switchAuthMode('forgot')}
+                    className="text-xs text-primary-design hover:text-on-surface transition-colors"
+                  >
+                    {dictionary.login.forgotPassword}
+                  </button>
+                )}
+              </div>
               <input
                 type="password"
                 value={password}
@@ -164,6 +199,8 @@ export default function LoginContent({
           >
             {loading
               ? dictionary.login.sending
+              : authMode === 'forgot'
+              ? dictionary.login.sendResetLink
               : isSignUp
               ? dictionary.login.signUp
               : authMode === 'magic'
@@ -181,6 +218,16 @@ export default function LoginContent({
             {isSignUp
               ? dictionary.login.alreadyHaveAccount
               : dictionary.login.noAccount}
+          </button>
+        )}
+
+        {authMode === 'forgot' && (
+          <button
+            type="button"
+            onClick={() => switchAuthMode('password')}
+            className="mt-6 w-full text-sm text-primary-design hover:text-on-surface transition-colors"
+          >
+            {dictionary.login.backToSignIn}
           </button>
         )}
 

@@ -79,6 +79,19 @@
     "checkEmail": "Überprüfen Sie Ihre E-Mails für den Magic Link!",
     "error": "Magic Link konnte nicht gesendet werden. Bitte versuchen Sie es erneut.",
     "alreadyHaveAccount": "Haben Sie bereits ein Konto? Anmelden",
-    "noAccount": "Haben Sie kein Konto? Registrieren"
+    "noAccount": "Haben Sie kein Konto? Registrieren",
+    "forgotPassword": "Passwort vergessen?",
+    "sendResetLink": "Reset-Link senden",
+    "resetLinkSent": "Überprüfen Sie Ihre E-Mails für einen Link zum Zurücksetzen des Passworts.",
+    "backToSignIn": "Zurück zur Anmeldung",
+    "resetPasswordTitle": "Neues Passwort",
+    "resetPasswordSubtitle": "Geben Sie ein neues Passwort für Ihr Konto ein.",
+    "newPassword": "Neues Passwort",
+    "newPasswordPlaceholder": "Neues Passwort eingeben",
+    "confirmPassword": "Passwort bestätigen",
+    "confirmPasswordPlaceholder": "Neues Passwort bestätigen",
+    "updatePassword": "Passwort aktualisieren",
+    "passwordUpdated": "Passwort aktualisiert! Weiterleitung...",
+    "passwordMismatch": "Passwörter stimmen nicht überein"
   }
 }
